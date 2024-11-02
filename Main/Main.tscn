@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=9 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
-[ext_resource type="Script" path="res://Main/Main.gd" id="1_xufdn"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="3_pixrt"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
-[ext_resource type="PackedScene" uid="uid://dubd3xf2wqy5k" path="res://Collectables/Stick.tscn" id="5_qsqds"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
@@ -22,20 +20,7 @@ size = Vector2(1000, 1000)
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bk240"]
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_xufdn")
-
-[node name="Player" parent="." instance=ExtResource("2_ifrsp")]
-
-[node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("1_rlcv6")
-
-[node name="Timers" type="Node3D" parent="."]
-
-[node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 60.0
-
-[node name="SpawnTimer" type="Timer" parent="Timers"]
-wait_time = 10.0
 
 [node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_w78l0")
@@ -54,15 +39,23 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.82377, 0.566924, 0, -0.566924, 0.82377, 0, 11, 0)
-visible = false
+
+[node name="Monster" parent="." instance=ExtResource("3_pixrt")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7.233, 1.5, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_ifrsp")]
+
+[node name="MonsterTimer" type="Timer" parent="."]
+wait_time = 60.0
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 10.0
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 
-[node name="Monster" parent="." instance=ExtResource("3_pixrt")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 5.07869, 1.5, 0)
+[node name="StickScore" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
 
-[node name="Stick" parent="." instance=ExtResource("5_qsqds")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0813, 0.5, 3.10867)
-
-[connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
-[connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="MonsterTimer" to="." method="_on_monster_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
