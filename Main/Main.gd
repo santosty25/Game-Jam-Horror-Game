@@ -6,6 +6,7 @@ var isRunningSpawn = false # check if spawn timer is running
 
 @onready var monsterTimer = $Timers/MonsterTimer
 @onready var spawnTimer = $Timers/SpawnTimer
+@onready var stickScore = $UI/StickScore
 @onready var player: Player = get_node("Player")
 
 var spawnInt = 10.0 # timer for monsters to spawn
@@ -21,6 +22,7 @@ func _physics_process(delta: float) -> void:
 			spawnTimer.stop()
 			isRunning = false
 			isRunningSpawn = false
+	stickScore.text = "x " + str(player.stickCounter)
 			
 func _on_monster_timer_timeout():
 	print("Monster Timer Ran Out")
