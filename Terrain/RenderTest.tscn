@@ -15,7 +15,7 @@ size = Vector2(20, 20)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fs6n6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qu2q"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6a33k"]
 render_priority = 0
 shader = ExtResource("3_fwojs")
 shader_parameter/enable_fog = true
@@ -34,7 +34,7 @@ shader_parameter/outline_thickness = 0.05
 shader_parameter/enable_outline = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_7iq8f"]
-material = SubResource("ShaderMaterial_3qu2q")
+material = SubResource("ShaderMaterial_6a33k")
 flip_faces = true
 size = Vector2(2, 2)
 
