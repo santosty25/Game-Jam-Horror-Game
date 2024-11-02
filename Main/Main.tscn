@@ -19,14 +19,16 @@ size = Vector2(1000, 1000)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bk240"]
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_rlcv6")
+player = NodePath("Player")
 
 [node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_w78l0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationLink3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0191207, 0)
+visible = false
 mesh = SubResource("PlaneMesh_vb1hb")
 skeleton = NodePath("Floor")
 
