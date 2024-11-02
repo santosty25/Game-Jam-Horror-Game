@@ -1,7 +1,7 @@
 class_name Monster
 extends CharacterBody3D
 
-@onready var navigation= $NavigationAgent3D
+@onready var navigation = $NavigationAgent3D
 @onready var faceDir = $FaceDirection
 
 const SPEED = 1.0
