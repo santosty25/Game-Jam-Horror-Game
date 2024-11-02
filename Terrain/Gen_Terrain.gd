@@ -53,8 +53,11 @@ func _on_monster_timer_timeout():
 func _on_spawn_timer_timeout():
 	print("Spawning Monster")
 	var monster = monsterScene.instantiate()
-	var randDir =  Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
-	var spawn = player.global_transform.origin + randDir * 15.0
+	var dir = player.velocity.normalized()
+	if dir.length() == 0:
+		dir = player.transform.basis.z.normalized() * -1
+	
+	var spawn = player.global_transform.origin + dir * 10.0
 	monster.global_transform.origin = spawn
 	get_tree().current_scene.add_child(monster)
 	
