@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Monster/Monster.gd" id="1_hp6x5"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_qlemj"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a61be"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5bwuf"]
 
@@ -10,11 +10,12 @@
 script = ExtResource("1_hp6x5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_qlemj")
+mesh = SubResource("CapsuleMesh_a61be")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5bwuf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = -1.0
 
 [node name="FaceDirection" type="Node3D" parent="."]
