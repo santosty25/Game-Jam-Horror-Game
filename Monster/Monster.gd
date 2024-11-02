@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(delta):
 	faceDir.look_at(player.global_transform.origin, Vector3.UP)
-	rotate_y(deg_to_rad(faceDir.rotateion.y * turnSpeed))
+	rotate_y(deg_to_rad(faceDir.rotation.y * turnSpeed))
 	navigation.set_target_postion(player.global_transform.origin)
 	var velocity = (navigation.get_next_path_position() - transform.origin).normalized() * speed * delta
 	move_and_collide(velocity)
