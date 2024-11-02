@@ -10,6 +10,7 @@
 radius = 1.06317
 
 [node name="Stick" type="CharacterBody3D"]
+transform = Transform3D(0.6058, 0, 0, 0, 0.441, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_p1kir")
 
 [node name="StickCollision" type="CollisionShape3D" parent="."]

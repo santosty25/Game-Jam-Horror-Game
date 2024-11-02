@@ -1,13 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://8dqet3mcvwte"]
+[gd_scene load_steps=9 format=3 uid="uid://8dqet3mcvwte"]
 
-[ext_resource type="Script" path="res://Player/Player.gd" id="1_y1rsf"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
+[ext_resource type="Shader" path="res://Camera/Test.gdshader" id="2_6w3c5"]
+[ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="2_yupws"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lrq1e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hjlvn"]
 
-[node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_y1rsf")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qu2q"]
+render_priority = 0
+shader = ExtResource("2_6w3c5")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = null
+shader_parameter/noise_color = null
+shader_parameter/fog_distance = 6.0
+shader_parameter/fog_fade_range = 0.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 4.0
+shader_parameter/enable_color_limitation = false
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = false
+shader_parameter/dither_strength = 1.5
+shader_parameter/center = Vector3(0, 0, -10)
+shader_parameter/outline_thickness = 0.05
+shader_parameter/enable_outline = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_kd028"]
+material = SubResource("ShaderMaterial_3qu2q")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rs5be"]
+radius = 1.02085
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_t3kix")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_lrq1e")
@@ -17,5 +45,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0166089)
 shape = SubResource("CapsuleShape3D_hjlvn")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.909621, 0.41544, 0, -0.41544, 0.909621, -0.251297, 4.07196, 5.33524)
-fov = 105.012
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 6, 10)
+script = ExtResource("2_yupws")
+
+[node name="Shader" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573576, 0, 0.573576, 0.819152, 0, 0, -1)
+visible = false
+mesh = SubResource("QuadMesh_kd028")
+
+[node name="Interaction" type="Area3D" parent="."]
+
+[node name="Hitbox" type="CollisionShape3D" parent="Interaction"]
+shape = SubResource("SphereShape3D_rs5be")
+
+[connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
+[connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
