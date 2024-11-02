@@ -41,3 +41,6 @@ func _physics_process(delta: float) -> void:
 	
 func stick_nearby():
 	stickInRange = true
+	
+func takeDamage(damage):
+	health -= damage

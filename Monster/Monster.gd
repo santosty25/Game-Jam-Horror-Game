@@ -4,9 +4,10 @@ extends CharacterBody3D
 @onready var navigation= $NavigationAgent3D
 @onready var faceDir = $FaceDirection
 
-const SPEED = 5.0
+const SPEED = 1.0
 @export var turnSpeed = 4.0
 @export var damageInt = 1.0
+@export var damage = 5.0
 
 var player
 var damageTimer = 0.0
@@ -44,4 +45,5 @@ func damagePlayer(delta):
 	if damageTimer <= 0:
 		# reset timer
 		damageTimer = damageInt
+		player.takeDamage(damage)
 		
