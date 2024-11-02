@@ -49,10 +49,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.825435)
 
 [node name="MonsterTimer" type="Timer" parent="."]
-wait_time = 60.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 10.0
 
 [connection signal="timeout" from="MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
