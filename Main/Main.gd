@@ -31,14 +31,22 @@ func _on_monster_timer_timeout():
 
 func _on_spawn_timer_timeout():
 	print("Spawning Monster")
+	spawnMonster()
+	
+	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
+	spawnTimer.wait_time = spawnInt
+
+func spawnMonster():
 	var monster = monsterScene.instantiate()
 	var dir = player.velocity.normalized()
 	if dir.length() == 0:
 		dir = player.transform.basis.z.normalized() * -1
 	
-	var spawn = player.global_transform.origin + dir * 10.0
+	var spawn = player.global_transform.origin + dir * 15.0
 	monster.global_transform.origin = spawn
+	monster.connect("requestRespawn", Callable(self, "onRespawnRequest"))
 	get_tree().current_scene.add_child(monster)
-	
-	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
-	spawnTimer.wait_time = spawnInt
+
+func onRespawnRequest():
+	print("Respawning Monster")
+	spawnMonster()
