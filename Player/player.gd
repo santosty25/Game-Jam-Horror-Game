@@ -6,6 +6,7 @@ const SPEED = 5.0
 
 var stickInRange = null
 
+var health = 100
 
 @export var player: Player
 var stix
