@@ -3,32 +3,27 @@ extends Node3D
 var tree = load("res://Terrain/Tree/Tree.tscn")
 var grass = load("res://Terrain/Grass/Grass.tscn")
 var stick = load("res://Collectables/Stick.tscn")
-@onready var monsterTimer = $MonsterTimer
-@onready var spawnTimer = $SpawnTimer
-@onready var player = get_node("Player")
-
-var tree = load("res://Terrain/Tree/Tree.tscn")
-var grass = load("res://Terrain/Grass/Grass.tscn")
-
-var terrain_items = []
-
-var COUNT = 1000 # how many to gen
-var DISTANCE = 100 # radius from center
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# on load - generate 10 sticks
-	generateStick(50)
-	
 var monsterScene = preload("res://Monster/Monster.tscn")
 var isRunning = false # check if mosnter timer is running
 var isRunningSpawn = false # check if spawn timer is running
 var spawnInt = 10.0 # timer for monsters to spawn
 var minSpawnInt = 2.0 # fastest time monsters will start spawning
 var intervalDecrement = 1.0 # value for slowly decreasing spawn timer
+var terrain_items = []
+var COUNT = 1000 # how many to gen
+var DISTANCE = 100 # radius from center
+
+@onready var monsterTimer = $MonsterTimer
+@onready var spawnTimer = $SpawnTimer
+@onready var player = get_node("Player")
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# on load - generate 10 sticks
+	generateStick(50)
+	
 	for i in range(COUNT):
 		var node: Node3D
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://8dqet3mcvwte"]
+[gd_scene load_steps=17 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
 [ext_resource type="Shader" path="res://Camera/Test.gdshader" id="2_6w3c5"]
@@ -106,9 +106,10 @@ mesh = SubResource("QuadMesh_kd028")
 [node name="Hitbox" type="CollisionShape3D" parent="Interaction"]
 shape = SubResource("SphereShape3D_rs5be")
 
-[connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
-[connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
 [node name="Bar2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
 mesh = SubResource("PlaneMesh_lkq8b")
 skeleton = NodePath("../Bottom")
+
+[connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
+[connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
