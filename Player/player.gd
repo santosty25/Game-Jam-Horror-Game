@@ -7,6 +7,9 @@ var stickInRange = false
 var inside = false
 var health = 100
 var stickCounter = 0
+var stickLocation = []
+var respondLoc = []
+var full = false
 
 var stix = load("res://Collectables/Stick.tscn")
 
@@ -32,8 +35,18 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if stickInRange && Input.is_action_just_pressed("Interact"):
 			stickCounter = stickCounter + 1
-			print(stickCounter)
 			stix.pickup()
+			stickLocation.append(stix.getPosition())
+			print(stickLocation.size())
+			print(stickLocation)
+			print(stix.getPosition())
+			if stickLocation.size() > 10:
+				respondLoc = stickLocation[0]
+				stickLocation = stickLocation.slice(1, 9)
+				stickLocation.append(stix.getPosition())
+				full = true
+			else:
+				full = false
 			stickInRange = false
 			
 	# Get the input direction and handle the movement/deceleration.
@@ -62,7 +75,12 @@ func _physics_process(delta: float) -> void:
 		mesh.mesh.material.albedo_texture = idle
 	move_and_slide()
 	
-	
+func getRespondLoc():
+	return respondLoc
+
+func getFull():
+	return full
+
 func takeDamage(damage):
 	health -= damage
 	print("Player took damage")
@@ -79,26 +97,12 @@ func makeOutlineRed():
 func makeOutlineWhite():
 	shader.set("shader_parameter/threat_near",false)
 
-func _on_interaction_body_entered(body: Node3D) -> void:
-	if body is Stick:
-		print("Stick inside")
-		stix = body
-		stickInRange = true
-
-func _on_interaction_body_exited(body: Node3D) -> void:
-	if body is Stick:
-		print("Stick Gone")
-		stickInRange = false
-
-
 func _on_interaction_area_entered(area: Area3D) -> void:
-	if area.get_parent() is Stick:
-		print("Stick inside")
+	if area.get_parent() is Stick && stickCounter < 5:
 		stix = area.get_parent()
 		stickInRange = true
 
 
 func _on_interaction_area_exited(area: Area3D) -> void:
 	if area.get_parent() is Stick:
-		print("Stick Gone")
 		stickInRange = false

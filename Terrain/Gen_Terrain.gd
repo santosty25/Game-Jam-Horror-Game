@@ -8,7 +8,8 @@ var terrain_items = []
 var COUNT = 1000 # how many to gen
 var DISTANCE = 100 # radius from center
 
-@onready var player = get_node("Player")
+#@onready var player = get_node("Player")
+@export var player: Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,20 +31,57 @@ func _ready() -> void:
 		terrain_items.append(node)
 		add_child(node)
 		
+#func generateStick(num: int):
+	#for i in range(num):
+		#var node: Node3D
+		#
+		#node = stick.instantiate()
+		#node.set_player(player)
+		#node.position.x = (randf()-0.5)*DISTANCE*2
+		#node.position.z = (randf()-0.5)*DISTANCE*2
+		#add_child(node)
+
 func generateStick(num: int):
 	for i in range(num):
-		var node: Node3D
+		for j in range(num):
+			var node: Node3D
 		
-		node = stick.instantiate()
-		node.set_player(player)
-		node.position.x = (randf()-0.5)*DISTANCE*2
-		node.position.z = (randf()-0.5)*DISTANCE*2
-		add_child(node)
+			node = stick.instantiate()
+			node.set_player(player)
+			node.position.x = i * 20
+			node.position.z = j * 20
+			add_child(node)
+			
+	for i in range(num):
+		for j in range(num):
+			var node: Node3D
+		
+			node = stick.instantiate()
+			node.set_player(player)
+			node.position.x = i * -20
+			node.position.z = j * -20
+			add_child(node)
+
+func regenStick(pos: Array):
+	var node: Node3D
+	node = stick.instantiate()
+	node.set_player(player)
+	node.position.x = pos[0]
+	node.position.y = pos[1]
+	node.position.z = pos[2]
+	add_child(node)
+	
+
+
 
 func _physics_process(delta):
+	
 	if player:
 		for each in terrain_items:
 			if each.position.z > player.position.z+6:
 				each.visible = false
 			else:
 				each.visible = true
+	
+	if player.getFull() == true:
+		regenStick(player.getRespondLoc())
