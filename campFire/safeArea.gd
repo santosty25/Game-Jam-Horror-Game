@@ -1,5 +1,7 @@
 extends Area3D
 
+signal timer_expired  # Signal to notify when timer ends
+
 var healing_rate = 1.0  
 var player = null  
 var monster = null
@@ -61,6 +63,7 @@ func _process(delta):
 		print("Expired")
 		safe_timer.stop()
 		player.setInside(false)
+		emit_signal("timer_expired")  # Emit signal when timer expires
 	
 	if player_in_interact_area and Input.is_action_just_pressed("Interact"):  # "interact" should be mapped to "E" in Input Map
 		add_stick()
