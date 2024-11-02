@@ -18,6 +18,8 @@ var stix = load("res://Collectables/Stick.tscn")
 @onready var interaction = $Interaction
 
 
+var inside = false
+
 func _ready():
 	pass
 
