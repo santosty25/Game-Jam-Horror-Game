@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
 [ext_resource type="Shader" path="res://Camera/Test.gdshader" id="2_6w3c5"]
-[ext_resource type="Texture2D" path="res://Player/Walk_2.png" id="2_ss3re"]
+[ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
 [ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="2_yupws"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]

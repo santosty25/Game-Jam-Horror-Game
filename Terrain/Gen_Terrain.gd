@@ -6,7 +6,6 @@ extends Node3D
 
 var tree = load("res://Terrain/Tree/Tree.tscn")
 var grass = load("res://Terrain/Grass/Grass.tscn")
-@export var player: CharacterBody3D
 
 var terrain_items = []
 
