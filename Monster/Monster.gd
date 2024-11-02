@@ -13,6 +13,7 @@ const SPEED = 1.0
 @export var turnSpeed = 4.0
 @export var damageInt = 1.0
 @export var damage = 5.0
+@export var despawnDistance = 50.0
 
 var player
 var damageTimer = 0.0
@@ -28,11 +29,21 @@ var frames = [F1,F2,F3,F4]
 var frameCounter = 0
 var currentFrame = 0
 
+signal requestRespawn 
+
 func _ready():
 	# get player node
 	player = get_tree().get_nodes_in_group("Player")[0]
 
 func _physics_process(delta):
+	var dist2Player = global_transform.origin.distance_to(player.global_transform.origin)
+	
+	if dist2Player > despawnDistance:
+		emit_signal("requestRespawn")
+		print("Far Away")
+		queue_free()
+		return
+
 	if player:
 		if player.getInside():
 			runAway(delta)
