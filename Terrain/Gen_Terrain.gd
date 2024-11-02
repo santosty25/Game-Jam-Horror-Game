@@ -15,14 +15,15 @@ var DISTANCE = 100 # radius from center
 
 @onready var monsterTimer = $MonsterTimer
 @onready var spawnTimer = $SpawnTimer
+@onready var stickScore = $StickScore
 @onready var player = get_node("Player")
 
-#JUST REFRESHING SCRIPT
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# on load - generate 10 sticks
-	generateStick(50)
+	generateStick(100)
 	
 	for i in range(COUNT):
 		var node: Node3D
@@ -39,14 +40,17 @@ func _ready() -> void:
 		terrain_items.append(node)
 		add_child(node)
 		
+
 func generateStick(num: int):
 	for i in range(num):
 		var node: Node3D
 		
 		node = stick.instantiate()
+			
 		node.position.x = (randf()-0.5)*DISTANCE*2
 		node.position.z = (randf()-0.5)*DISTANCE*2
 		add_child(node)
+
 
 #func timedSticks():
 	
@@ -67,7 +71,8 @@ func _physics_process(delta):
 			spawnTimer.stop()
 			isRunning = false
 			isRunningSpawn = false
-			
+	stickScore.text = "x " + str(player.stickCounter)
+
 func _on_monster_timer_timeout():
 	print("Monster Timer Ran Out")
 	monsterTimer.stop()
@@ -88,4 +93,3 @@ func _on_spawn_timer_timeout():
 	
 	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
 	spawnTimer.wait_time = spawnInt
-	

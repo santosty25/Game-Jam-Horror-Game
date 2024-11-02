@@ -53,5 +53,9 @@ wait_time = 10.0
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 
+[node name="StickScore" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="timeout" from="MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
