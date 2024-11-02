@@ -44,3 +44,4 @@ func stick_nearby():
 	
 func takeDamage(damage):
 	health -= damage
+	print("Player took damage")
