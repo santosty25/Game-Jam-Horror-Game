@@ -10,8 +10,10 @@ var stick = load("res://Collectables/Stick.tscn")
 var tree = load("res://Terrain/Tree/Tree.tscn")
 var grass = load("res://Terrain/Grass/Grass.tscn")
 
-var COUNT = 30 # how many to gen
-var DISTANCE = 10 # radius from center
+var terrain_items = []
+
+var COUNT = 1000 # how many to gen
+var DISTANCE = 100 # radius from center
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,6 +41,7 @@ func _ready() -> void:
 		# assign random position and show
 		node.position.x = (randf()-0.5)*DISTANCE*2
 		node.position.z = (randf()-0.5)*DISTANCE*2
+		terrain_items.append(node)
 		add_child(node)
 		
 func generateStick(num: int):
@@ -54,6 +57,13 @@ func generateStick(num: int):
 	
 
 func _physics_process(delta):
+	if player:
+		for each in terrain_items:
+			if each.position.z > player.position.z+6:
+				each.visible = false
+			else:
+				each.visible = true
+
 	if !player.getInside():
 		if !isRunning:
 			monsterTimer.start()
@@ -83,3 +93,4 @@ func _on_spawn_timer_timeout():
 	
 	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
 	spawnTimer.wait_time = spawnInt
+	

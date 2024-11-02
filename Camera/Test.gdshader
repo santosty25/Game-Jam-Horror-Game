@@ -71,7 +71,21 @@ void fragment(){
 	}
 	else{
 		depth_mask_inv = clamp((linear_depth - fog_distance)*100.0, 0.0, 1.0);
-		if (abs(linear_depth - fog_distance) < outline_thickness){
+		bool dashed = false;
+		bool edge1 = false;
+		bool edge2 = false;
+		if (d.z < center.z-fog_distance+2.0*outline_thickness || d.z > center.z+fog_distance-2.0*outline_thickness){
+			dashed = sin((d.x+NODE_POSITION_WORLD.x)*10.0) < 0.0;
+			edge1 = true;
+		}
+		if (d.x < center.x-fog_distance+2.0*outline_thickness || d.x > center.x+fog_distance-2.0*outline_thickness){
+			dashed = sin((d.z+NODE_POSITION_WORLD.z)*10.0) < 0.0;
+			edge2 = true;
+		}
+		if (edge1 && edge2){
+			dashed = sin((d.y+NODE_POSITION_WORLD.y)*10.0) < 0.0;
+		}
+		if (dashed && d.y+NODE_POSITION_WORLD.y < -0.9){
 			final_color = vec3(1,1,1);
 		}
 	}
