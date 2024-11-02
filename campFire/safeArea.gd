@@ -46,9 +46,8 @@ func add_stick():
 	if safe_timer.time_left < max_time:
 		var difference = min(max_time, safe_timer.time_left + 20)
 		safe_timer.wait_time = difference
-		#countdown_time = min(safe_timer.wait_time + 10.0, max_time)  # Adds 10 seconds, capped at 120
 		safe_timer.start()  # Restart timer to apply updated wait time
-		print("Stick added to the fire! Timer extended to:", safe_timer.wait_time, "seconds")
+		print("Stick added to the fire! Timer extended to: ", safe_timer.wait_time, "seconds")
 		player.stickCounter -= 1
 		
 func _process(delta):

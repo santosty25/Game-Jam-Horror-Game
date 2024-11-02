@@ -17,7 +17,7 @@ var DISTANCE = 100 # radius from center
 @onready var spawnTimer = $SpawnTimer
 @onready var player = get_node("Player")
 
-
+#JUST REFRESHING SCRIPT
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
