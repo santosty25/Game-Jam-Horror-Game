@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4623nqe2wuht"]
+[gd_scene load_steps=8 format=3 uid="uid://b4623nqe2wuht"]
 
 [ext_resource type="Script" path="res://campFire/safeArea.gd" id="1_2n34e"]
 [ext_resource type="Script" path="res://campFire/Campfire.gd" id="1_eewxj"]
@@ -17,6 +17,8 @@ texture_filter = 2
 [sub_resource type="PlaneMesh" id="PlaneMesh_436hr"]
 material = SubResource("StandardMaterial3D_rygg5")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_0o7wn"]
+
 [node name="CampFire" type="Node3D"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_eewxj")
@@ -24,6 +26,8 @@ script = ExtResource("1_eewxj")
 [node name="safeArea" type="Area3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 script = ExtResource("1_2n34e")
+
+[node name="Timer" type="Timer" parent="safeArea"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="safeArea"]
 shape = SubResource("SphereShape3D_pm533")
@@ -38,5 +42,13 @@ light_energy = 2.0
 light_size = 20.0
 omni_range = 20.0
 
+[node name="interactArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactArea"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("SphereShape3D_0o7wn")
+
 [connection signal="body_entered" from="safeArea" to="safeArea" method="_on_body_entered"]
 [connection signal="body_exited" from="safeArea" to="safeArea" method="_on_body_exited"]
+[connection signal="body_entered" from="interactArea" to="safeArea" method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="interactArea" to="safeArea" method="_on_interact_area_body_exited"]

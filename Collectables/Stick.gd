@@ -23,5 +23,5 @@ func _on_area_3d_body_entered(body: CharacterBody3D) -> void:
 		
 		
 func pickup():
-	player.add_child(self)
+	#player.add_child(self)
 	queue_free()
