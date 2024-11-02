@@ -10,7 +10,6 @@
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-shading_mode = 0
 albedo_texture = ExtResource("2_tsgda")
 texture_filter = 2
 
@@ -34,7 +33,6 @@ mesh = SubResource("PlaneMesh_436hr")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 1, 0.207843, 1)
-light_energy = 2.0
 light_size = 20.0
 omni_range = 20.0
 
