@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
-[ext_resource type="Shader" path="res://Camera/Test.gdshader" id="2_6w3c5"]
+[ext_resource type="Shader" path="res://Camera/Outline.gdshader" id="2_6w3c5"]
 [ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
 [ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="2_yupws"]
 
@@ -59,6 +59,7 @@ shader_parameter/dither_strength = 1.5
 shader_parameter/center = Vector3(0, 0, -9.8)
 shader_parameter/outline_thickness = 0.1
 shader_parameter/enable_outline = true
+shader_parameter/threat_near = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_kd028"]
 material = SubResource("ShaderMaterial_3qu2q")

@@ -20,9 +20,9 @@ var currentFrame = 0
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
-@onready var camera = $"Camera3D"
+@onready var camera = $Ground/Camera3D
+@onready var shader = $Ground/Camera3D/Shader.mesh.material
 @onready var interaction = $Interaction
-
 
 #var inside = false
 
@@ -68,13 +68,16 @@ func takeDamage(damage):
 	print("Player took damage")
 	
 func setInside(val):
+	makeOutlineWhite()
 	inside = val
 	
 func getInside():
 	return inside
 
-
-
+func makeOutlineRed():
+	shader.set("shader_parameter/threat_near",true)
+func makeOutlineWhite():
+	shader.set("shader_parameter/threat_near",false)
 
 func _on_interaction_body_entered(body: Node3D) -> void:
 	if body is Stick:
