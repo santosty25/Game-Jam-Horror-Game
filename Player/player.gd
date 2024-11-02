@@ -11,6 +11,12 @@ var health = 100
 @export var player: Player
 var stix
 
+var frames = [load("res://Player/Player_1.png"),load("res://Player/Player_2.png"),load("res://Player/Player_3.png")]
+var idle = frames[1]
+var frameRate = 0.25
+var frameCounter = 0
+var currentFrame = 0
+
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
 @onready var camera = $"Camera3D"
@@ -38,7 +44,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+		
+	if velocity.x < 0:
+		mesh.scale.x = -abs(mesh.scale.x)
+	elif velocity.x > 0:
+		mesh.scale.x = abs(mesh.scale.x)
+		
+	if velocity.length() > 0:
+		frameCounter += delta
+		if frameCounter > frameRate:
+			frameCounter = 0
+			currentFrame = (currentFrame+1)%len(frames)
+			mesh.mesh.material.albedo_texture = frames[currentFrame]
+	else:
+		mesh.mesh.material.albedo_texture = idle
 	move_and_slide()
 	
 func stick_nearby():
