@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://7ti3ycquh6k2"]
+
+[ext_resource type="Script" path="res://campFire/campFire.gd" id="1_y78qa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7v0yu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_738wx"]
+
+[node name="CampFire" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_7v0yu")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_y78qa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("SphereShape3D_738wx")
