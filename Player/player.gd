@@ -7,10 +7,8 @@ var stickInRange = false
 var inside = false
 var health = 100
 var stickCounter = 0
-
 var stix = load("res://Collectables/Stick.tscn")
-
-@export var player: Player
+var stickHint = "Press (E) to pick up STICK"
 
 var frames = [load("res://Player/Player_1.png"),load("res://Player/Player_2.png"),load("res://Player/Player_3.png")]
 var idle = frames[1]
@@ -23,6 +21,7 @@ var currentFrame = 0
 @onready var camera = $Ground/Camera3D
 @onready var shader = $Ground/Camera3D/Shader.mesh.material
 @onready var interaction = $Interaction
+@export var messager: Messager
 
 #var inside = false
 
@@ -79,26 +78,17 @@ func makeOutlineRed():
 func makeOutlineWhite():
 	shader.set("shader_parameter/threat_near",false)
 
-func _on_interaction_body_entered(body: Node3D) -> void:
-	if body is Stick:
-		print("Stick inside")
-		stix = body
-		stickInRange = true
-
-func _on_interaction_body_exited(body: Node3D) -> void:
-	if body is Stick:
-		print("Stick Gone")
-		stickInRange = false
-
-
 func _on_interaction_area_entered(area: Area3D) -> void:
 	if area.get_parent() is Stick:
 		print("Stick inside")
 		stix = area.get_parent()
 		stickInRange = true
-
+		if messager:
+			messager.setMessage(stickHint)
 
 func _on_interaction_area_exited(area: Area3D) -> void:
 	if area.get_parent() is Stick:
 		print("Stick Gone")
 		stickInRange = false
+		if messager:
+			messager.delMessage()

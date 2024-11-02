@@ -54,11 +54,11 @@ func add_stick():
 func _process(delta):
 	# Countdown logic
 	if safe_timer.time_left > 1:
-		print("Time left in safe area:", int(safe_timer.time_left), "seconds")
-		print(player.stickCounter)
+		#print("Time left in safe area:", int(safe_timer.time_left), "seconds")
+		#print(player.stickCounter)
 		pass
 	else:
-		print("Expired")
+		#print("Expired")
 		safe_timer.stop()
 		player.setInside(false)
 	
