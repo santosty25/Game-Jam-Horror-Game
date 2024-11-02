@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dubd3xf2wqy5k"]
+
+[ext_resource type="Script" path="res://Collectables/Stick.gd" id="1_p1kir"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6abmm"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0ebvu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ef3p"]
+radius = 1.06317
+
+[node name="Stick" type="CharacterBody3D"]
+script = ExtResource("1_p1kir")
+
+[node name="StickCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.0414397, 0.999141, 0, -0.999141, -0.0414397, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_6abmm")
+
+[node name="StickMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0413526, 0.999145, 0, -0.999145, -0.0413526, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_0ebvu")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0211325)
+
+[node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_6ef3p")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
