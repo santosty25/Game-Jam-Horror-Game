@@ -28,6 +28,6 @@ func _process(delta):
 	var ins = player.getInside()
 	if ins and player and is_instance_valid(player):
 		player.health += healing_rate * delta
-		print("Player healed by", healing_rate * delta)
-		print("Players health is now", player.health)
+		#print("Player healed by", healing_rate * delta)
+		#print("Players health is now", player.health)
 	

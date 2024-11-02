@@ -1,12 +1,46 @@
-[gd_scene load_steps=8 format=3 uid="uid://8dqet3mcvwte"]
+[gd_scene load_steps=9 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
 [ext_resource type="Shader" path="res://Camera/Test.gdshader" id="2_6w3c5"]
+[ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
 [ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="2_yupws"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_lrq1e"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_ss3re")
+backlight = Color(1, 1, 1, 1)
+texture_filter = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ml34x"]
+material = SubResource("StandardMaterial3D_ysx6n")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hjlvn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqrvx"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xtpj7"]
+material = SubResource("StandardMaterial3D_wqrvx")
+size = Vector2(12, 12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ad1v8"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lkq8b"]
+material = SubResource("StandardMaterial3D_ad1v8")
+size = Vector2(0.1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4ucc"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ykgew"]
+material = SubResource("StandardMaterial3D_y4ucc")
+size = Vector2(12, 12)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3qu2q"]
 render_priority = 0
@@ -22,8 +56,8 @@ shader_parameter/enable_color_limitation = false
 shader_parameter/color_levels = 32
 shader_parameter/enable_dithering = false
 shader_parameter/dither_strength = 1.5
-shader_parameter/center = Vector3(0, 0, -10)
-shader_parameter/outline_thickness = 0.05
+shader_parameter/center = Vector3(0, 0, -9.8)
+shader_parameter/outline_thickness = 0.1
 shader_parameter/enable_outline = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_kd028"]
@@ -31,21 +65,50 @@ material = SubResource("ShaderMaterial_3qu2q")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_rs5be"]
+radius = 1.02085
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_t3kix")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_lrq1e")
+transform = Transform3D(1.5, 0, 0, 0, -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 1.25, 0)
+mesh = SubResource("PlaneMesh_ml34x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0166089)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_hjlvn")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Bottom" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("PlaneMesh_xtpj7")
+skeleton = NodePath("../Ground")
+
+[node name="Bar1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.95, -1, 6)
+mesh = SubResource("PlaneMesh_lkq8b")
+skeleton = NodePath("../Bottom")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ykgew")
+
+[node name="Camera3D" type="Camera3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 6, 10)
 script = ExtResource("2_yupws")
 
-[node name="Shader" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573576, 0, 0.573576, 0.819152, 0, 0, -1)
+[node name="Shader" type="MeshInstance3D" parent="Ground/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573576, 0, 0.573576, 0.819152, 0, -0.42522, -1.29774)
 visible = false
 mesh = SubResource("QuadMesh_kd028")
+
+[node name="Interaction" type="Area3D" parent="."]
+
+[node name="Hitbox" type="CollisionShape3D" parent="Interaction"]
+shape = SubResource("SphereShape3D_rs5be")
+
+[connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
+[connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
+[node name="Bar2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
+mesh = SubResource("PlaneMesh_lkq8b")
+skeleton = NodePath("../Bottom")

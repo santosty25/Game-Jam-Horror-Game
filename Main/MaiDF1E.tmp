@@ -27,7 +27,6 @@ navigation_mesh = SubResource("NavigationMesh_w78l0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationLink3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0191207, 0)
-visible = false
 mesh = SubResource("PlaneMesh_vb1hb")
 skeleton = NodePath("Floor")
 
@@ -44,15 +43,14 @@ transform = Transform3D(1, 0, 0, 0, 0.82377, 0.566924, 0, -0.566924, 0.82377, 0,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2326, 1.0323, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_ifrsp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.825435)
 
 [node name="MonsterTimer" type="Timer" parent="."]
-wait_time = 60.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 10.0
 
 [connection signal="timeout" from="MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

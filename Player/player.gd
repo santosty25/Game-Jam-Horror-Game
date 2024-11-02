@@ -1,33 +1,35 @@
 extends CharacterBody3D
 class_name Player
 
-
 const SPEED = 5.0
 
-var stickInRange = null
-
+var stickInRange = false
+var inside = false
 var health = 100
+var stickCounter = 0
+
+var stix = load("res://Collectables/Stick.tscn")
 
 @export var player: Player
-var stix
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
 @onready var camera = $"Camera3D"
+@onready var interaction = $Interaction
+
 
 var inside = false
 
 func _ready():
-	stix = get_node("Stick")
+	pass
 
-	
 func _physics_process(delta: float) -> void:
-	
 	if stickInRange && Input.is_action_just_pressed("Interact"):
-		stickInRange.pickup()
-		stickInRange = null
-		
-
+			stickCounter = stickCounter + 1
+			print(stickCounter)
+			stix.pickup()
+			stickInRange = false
+			
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("Left", "Right", "Up", "Down")
@@ -41,8 +43,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-func stick_nearby():
-	stickInRange = true
 	
 func takeDamage(damage):
 	health -= damage
@@ -53,3 +53,15 @@ func setInside(val):
 	
 func getInside():
 	return inside
+
+
+func _on_interaction_body_entered(body: Node3D) -> void:
+	if body is Stick:
+		print("Stick inside")
+		stix = body
+		stickInRange = true
+
+func _on_interaction_body_exited(body: Node3D) -> void:
+	if body is Stick:
+		print("Stick Gone")
+		stickInRange = false
