@@ -1,18 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://7ti3ycquh6k2"]
+[gd_scene load_steps=4 format=3 uid="uid://b4623nqe2wuht"]
 
-[ext_resource type="Script" path="res://campFire/campFire.gd" id="1_y78qa"]
+[ext_resource type="Script" path="res://campFire/safeArea.gd" id="1_2n34e"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_7v0yu"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_pm533"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_738wx"]
+[sub_resource type="PrismMesh" id="PrismMesh_deqbr"]
 
-[node name="CampFire" type="MeshInstance3D"]
-mesh = SubResource("BoxMesh_7v0yu")
+[node name="CampFire" type="Node3D"]
 
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-script = ExtResource("1_y78qa")
+[node name="safeArea" type="Area3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_2n34e")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("SphereShape3D_738wx")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="safeArea"]
+shape = SubResource("SphereShape3D_pm533")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_deqbr")
