@@ -12,12 +12,17 @@ var stix = load("res://Collectables/Stick.tscn")
 
 @export var player: Player
 
+var frames = [load("res://Player/Player_1.png"),load("res://Player/Player_2.png"),load("res://Player/Player_3.png")]
+var idle = frames[1]
+var frameRate = 0.25
+var frameCounter = 0
+var currentFrame = 0
+
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
-@onready var camera = $"Camera3D"
+@onready var camera = $Ground/Camera3D
+@onready var shader = $Ground/Camera3D/Shader.mesh.material
 @onready var interaction = $Interaction
-
-
 
 #var inside = false
 
@@ -41,7 +46,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+		
+	if velocity.x < 0:
+		mesh.scale.x = -abs(mesh.scale.x)
+	elif velocity.x > 0:
+		mesh.scale.x = abs(mesh.scale.x)
+		
+	if velocity.length() > 0:
+		frameCounter += delta
+		if frameCounter > frameRate:
+			frameCounter = 0
+			currentFrame = (currentFrame+1)%len(frames)
+			mesh.mesh.material.albedo_texture = frames[currentFrame]
+	else:
+		mesh.mesh.material.albedo_texture = idle
 	move_and_slide()
 	
 	
@@ -50,21 +68,37 @@ func takeDamage(damage):
 	print("Player took damage")
 	
 func setInside(val):
+	makeOutlineWhite()
 	inside = val
 	
 func getInside():
 	return inside
 
-func getScore():
-	return stickCounter
+func makeOutlineRed():
+	shader.set("shader_parameter/threat_near",true)
+func makeOutlineWhite():
+	shader.set("shader_parameter/threat_near",false)
 
 func _on_interaction_body_entered(body: Node3D) -> void:
-	if body is Stick && stickCounter<5:
+	if body is Stick:
 		print("Stick inside")
 		stix = body
 		stickInRange = true
 
 func _on_interaction_body_exited(body: Node3D) -> void:
 	if body is Stick:
+		print("Stick Gone")
+		stickInRange = false
+
+
+func _on_interaction_area_entered(area: Area3D) -> void:
+	if area.get_parent() is Stick:
+		print("Stick inside")
+		stix = area.get_parent()
+		stickInRange = true
+
+
+func _on_interaction_area_exited(area: Area3D) -> void:
+	if area.get_parent() is Stick:
 		print("Stick Gone")
 		stickInRange = false

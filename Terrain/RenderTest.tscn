@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_wgbdp"]
 [ext_resource type="Script" path="res://Camera/CamMoveTest.gd" id="2_memd4"]
-[ext_resource type="Shader" path="res://Camera/Test.gdshader" id="3_fwojs"]
+[ext_resource type="Shader" path="res://Camera/Outline.gdshader" id="3_fwojs"]
 [ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="4_o2bp1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utgsm"]
@@ -32,6 +32,7 @@ shader_parameter/dither_strength = 1.5
 shader_parameter/center = Vector3(0, 0, -5.1)
 shader_parameter/outline_thickness = 0.05
 shader_parameter/enable_outline = true
+shader_parameter/threat_near = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_7iq8f"]
 material = SubResource("ShaderMaterial_6a33k")

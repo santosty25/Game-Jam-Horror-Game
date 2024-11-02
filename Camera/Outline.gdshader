@@ -18,6 +18,7 @@ uniform float dither_strength = 0.3;
 uniform vec3 center = vec3(0,0,-6);
 uniform float outline_thickness = 0.05;
 uniform bool enable_outline = true;
+uniform bool threat_near = false;
 
 float hashOld12(vec2 p){
 	return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453 + (sin((TIME)) / noise_time_fac)) ;
@@ -87,6 +88,9 @@ void fragment(){
 		}
 		if (dashed && d.y+NODE_POSITION_WORLD.y < -0.9){
 			final_color = vec3(1,1,1);
+			if (threat_near) {
+				final_color = vec3(1,0,0);
+			}
 		}
 	}
 
