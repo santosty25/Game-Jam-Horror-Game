@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbp4ib4m7mth1"]
+
+[ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_wgbdp"]
+[ext_resource type="Script" path="res://Camera/CamMoveTest.gd" id="2_memd4"]
+[ext_resource type="Shader" path="res://Camera/Test.gdshader" id="3_fwojs"]
+[ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="4_o2bp1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utgsm"]
+shading_mode = 0
+albedo_color = Color(0.0962048, 0.0962047, 0.0962047, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_afivj"]
+material = SubResource("StandardMaterial3D_utgsm")
+size = Vector2(20, 20)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fs6n6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6a33k"]
+render_priority = 0
+shader = ExtResource("3_fwojs")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = null
+shader_parameter/noise_color = null
+shader_parameter/fog_distance = 3.0
+shader_parameter/fog_fade_range = 0.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 4.0
+shader_parameter/enable_color_limitation = false
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = false
+shader_parameter/dither_strength = 1.5
+shader_parameter/center = Vector3(0, 0, -5.1)
+shader_parameter/outline_thickness = 0.05
+shader_parameter/enable_outline = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_7iq8f"]
+material = SubResource("ShaderMaterial_6a33k")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="RenderTest" type="Node3D"]
+script = ExtResource("1_wgbdp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_afivj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_fs6n6")
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("2_memd4")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(-1, 5.01436e-08, -7.16125e-08, 0, 0.819152, 0.573576, 8.74228e-08, 0.573576, -0.819152, 0, 3, -5)
+
+[node name="Shader" type="MeshInstance3D" parent="Player/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573576, 0, 0.573576, 0.819152, 0, 0, -1)
+mesh = SubResource("QuadMesh_7iq8f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.846714, 0.532049, 0, -0.532049, -0.846714, 0, 1.28408, 0)
+
+[node name="Tree" parent="." instance=ExtResource("4_o2bp1")]
