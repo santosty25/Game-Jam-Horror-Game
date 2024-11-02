@@ -18,6 +18,7 @@ var stix = load("res://Collectables/Stick.tscn")
 @onready var interaction = $Interaction
 
 
+
 #var inside = false
 
 func _ready():
@@ -54,9 +55,11 @@ func setInside(val):
 func getInside():
 	return inside
 
+func getScore():
+	return stickCounter
 
 func _on_interaction_body_entered(body: Node3D) -> void:
-	if body is Stick:
+	if body is Stick && stickCounter<5:
 		print("Stick inside")
 		stix = body
 		stickInRange = true
