@@ -18,6 +18,7 @@ func _ready():
 	
 	safe_timer.wait_time = max_time
 	safe_timer.start()
+	#fix number 3
 	
 func _on_interact_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
