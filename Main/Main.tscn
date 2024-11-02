@@ -24,6 +24,8 @@ size = Vector2(1000, 1000)
 [node name="Main" type="Node3D"]
 script = ExtResource("1_xufdn")
 
+[node name="Player" parent="." instance=ExtResource("2_ifrsp")]
+
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("1_rlcv6")
 
@@ -53,8 +55,6 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.82377, 0.566924, 0, -0.566924, 0.82377, 0, 11, 0)
 visible = false
-
-[node name="Player" parent="." instance=ExtResource("2_ifrsp")]
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 
