@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=9 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_124to"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="3_pixrt"]
+[ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
@@ -44,3 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
 
 [node name="Monster" parent="." instance=ExtResource("3_pixrt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2326, 1.0323, 0)
+
+[node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18791, 1, 1.707)
