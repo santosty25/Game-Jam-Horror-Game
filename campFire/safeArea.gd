@@ -4,7 +4,6 @@ extends Area3D
 var healing_rate = 1.0  # Health points per second
 var player = null  # Reference to the player, to be set when the player enters the area
 var monster = null
-var inside = false
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
@@ -17,16 +16,17 @@ func _ready():
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		print("Player entered the campfire area")
-		inside = true
+		player.setInside(true)
 		
 func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		print("Player left the campfire area")
-		inside = false
+		player.setInside(false)
 		
 func _process(delta):
 	# Apply healing over time if the player is inside the radius
-	if inside and player and is_instance_valid(player):
+	var ins = player.getInside()
+	if ins and player and is_instance_valid(player):
 		player.health += healing_rate * delta
 		print("Player healed by", healing_rate * delta)
 		print("Players health is now", player.health)
