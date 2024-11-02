@@ -1,30 +1,46 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=8 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_124to"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
+[ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="3_pixrt"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dmrev"]
-size = Vector3(1000, 1, 1000)
+[sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
+vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vb1hb"]
 size = Vector2(1000, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dmrev"]
+size = Vector3(1000, 1, 1000)
 
 [sub_resource type="Environment" id="Environment_ipmk4"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_124to")
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_w78l0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_dmrev")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationLink3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0191207, 0)
 mesh = SubResource("PlaneMesh_vb1hb")
+skeleton = NodePath("Floor")
+
+[node name="Floor" type="StaticBody3D" parent="NavigationLink3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0191207, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationLink3D/MeshInstance3D/Floor"]
+shape = SubResource("BoxShape3D_dmrev")
 
 [node name="Player" parent="." instance=ExtResource("2_ifrsp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15416, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ipmk4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 0)
+
+[node name="Monster" parent="." instance=ExtResource("3_pixrt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2326, 1.0323, 0)
