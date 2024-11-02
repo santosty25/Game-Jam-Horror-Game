@@ -41,12 +41,9 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 transform = Transform3D(1, 0, 0, 0, 0.82377, 0.566924, 0, -0.566924, 0.82377, 0, 11, 0)
 
 [node name="Monster" parent="." instance=ExtResource("3_pixrt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2326, 1.0323, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7.233, 1.5, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_ifrsp")]
-
-[node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.825435)
 
 [node name="MonsterTimer" type="Timer" parent="."]
 wait_time = 60.0
