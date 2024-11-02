@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1642jywcntcn"]
+
+[ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
+[ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
+[ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="3_pixrt"]
+[ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
+vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x1qu"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vb1hb"]
+material = SubResource("StandardMaterial3D_7x1qu")
+size = Vector2(1000, 1000)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bk240"]
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_rlcv6")
+player = NodePath("Player")
+
+[node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_w78l0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationLink3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0191207, 0)
+visible = false
+mesh = SubResource("PlaneMesh_vb1hb")
+skeleton = NodePath("Floor")
+
+[node name="Floor" type="StaticBody3D" parent="NavigationLink3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0191207, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationLink3D/MeshInstance3D/Floor"]
+shape = SubResource("WorldBoundaryShape3D_bk240")
+
+[node name="Monster" parent="." instance=ExtResource("3_pixrt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2326, 1.0323, 0)
+
+[node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
+
+[node name="Player" parent="." instance=ExtResource("2_ifrsp")]

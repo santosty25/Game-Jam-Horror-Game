@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4623nqe2wuht"]
+
+[ext_resource type="Script" path="res://campFire/safeArea.gd" id="1_2n34e"]
+[ext_resource type="Script" path="res://campFire/Campfire.gd" id="1_eewxj"]
+[ext_resource type="Texture2D" uid="uid://ccr7c7xy0k2id" path="res://campFire/Fire_1.png" id="2_tsgda"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pm533"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rygg5"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_tsgda")
+texture_filter = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_436hr"]
+material = SubResource("StandardMaterial3D_rygg5")
+
+[node name="CampFire" type="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+script = ExtResource("1_eewxj")
+
+[node name="safeArea" type="Area3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+script = ExtResource("1_2n34e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="safeArea"]
+shape = SubResource("SphereShape3D_pm533")
+
+[node name="Sprite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0.0404428)
+mesh = SubResource("PlaneMesh_436hr")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 1, 0.207843, 1)
+light_size = 20.0
+omni_range = 20.0
+
+[connection signal="body_entered" from="safeArea" to="safeArea" method="_on_body_entered"]
+[connection signal="body_exited" from="safeArea" to="safeArea" method="_on_body_exited"]
