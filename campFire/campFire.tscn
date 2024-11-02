@@ -9,7 +9,7 @@
 [node name="CampFire" type="Node3D"]
 
 [node name="safeArea" type="Area3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 script = ExtResource("1_2n34e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="safeArea"]
@@ -17,3 +17,6 @@ shape = SubResource("SphereShape3D_pm533")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PrismMesh_deqbr")
+
+[connection signal="body_entered" from="safeArea" to="safeArea" method="_on_body_entered"]
+[connection signal="body_exited" from="safeArea" to="safeArea" method="_on_body_exited"]
