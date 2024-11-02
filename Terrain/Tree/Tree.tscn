@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc87r107rudy6"]
+
+[ext_resource type="Texture2D" uid="uid://dxws4e0r70uv4" path="res://Terrain/Tree/Tree.png" id="1_nnlin"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_omg2u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18dtr"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_nnlin")
+uv1_scale = Vector3(3, 2, 1)
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_33s1i"]
+material = SubResource("StandardMaterial3D_18dtr")
+size = Vector3(2, 2, 0)
+
+[node name="Tree" type="StaticBody3D"]
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_omg2u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
+mesh = SubResource("BoxMesh_33s1i")
