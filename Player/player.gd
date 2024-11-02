@@ -74,6 +74,8 @@ func getInside():
 	return inside
 
 
+
+
 func _on_interaction_body_entered(body: Node3D) -> void:
 	if body is Stick:
 		print("Stick inside")
@@ -82,5 +84,18 @@ func _on_interaction_body_entered(body: Node3D) -> void:
 
 func _on_interaction_body_exited(body: Node3D) -> void:
 	if body is Stick:
+		print("Stick Gone")
+		stickInRange = false
+
+
+func _on_interaction_area_entered(area: Area3D) -> void:
+	if area.get_parent() is Stick:
+		print("Stick inside")
+		stix = area.get_parent()
+		stickInRange = true
+
+
+func _on_interaction_area_exited(area: Area3D) -> void:
+	if area.get_parent() is Stick:
 		print("Stick Gone")
 		stickInRange = false

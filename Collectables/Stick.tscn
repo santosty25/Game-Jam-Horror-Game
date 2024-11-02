@@ -1,28 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://dubd3xf2wqy5k"]
+[gd_scene load_steps=6 format=3 uid="uid://dubd3xf2wqy5k"]
 
+[ext_resource type="Texture2D" uid="uid://l5313co6xudc" path="res://Collectables/Game_Jam_Sprites5.png" id="1_4b3nf"]
 [ext_resource type="Script" path="res://Collectables/Stick.gd" id="1_p1kir"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_6abmm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnsvs"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_4b3nf")
+texture_filter = 2
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_0ebvu"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_xgb7e"]
+material = SubResource("StandardMaterial3D_hnsvs")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6ef3p"]
-radius = 1.06317
+radius = 1.53
 
-[node name="Stick" type="CharacterBody3D"]
-transform = Transform3D(0.6058, 0, 0, 0, 0.441, 0, 0, 0, 0.5, 0, 0, 0)
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_p1kir")
 
-[node name="StickCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.0414397, 0.999141, 0, -0.999141, -0.0414397, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("CylinderShape3D_6abmm")
-
 [node name="StickMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.0413526, 0.999145, 0, -0.999145, -0.0413526, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_0ebvu")
+transform = Transform3D(1.5, 0, 0, 0, -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 1, 0)
+mesh = SubResource("PlaneMesh_xgb7e")
+skeleton = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0211325)
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.5, 0)
 
 [node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_6ef3p")

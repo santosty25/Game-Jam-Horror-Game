@@ -17,8 +17,6 @@ var DISTANCE = 100 # radius from center
 @onready var spawnTimer = $SpawnTimer
 @onready var player = get_node("Player")
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# on load - generate 10 sticks
@@ -44,6 +42,7 @@ func generateStick(num: int):
 		var node: Node3D
 		
 		node = stick.instantiate()
+		node.set_player(player)
 		node.position.x = (randf()-0.5)*DISTANCE*2
 		node.position.z = (randf()-0.5)*DISTANCE*2
 		add_child(node)

@@ -111,5 +111,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, 
 mesh = SubResource("PlaneMesh_lkq8b")
 skeleton = NodePath("../Bottom")
 
+[connection signal="area_entered" from="Interaction" to="." method="_on_interaction_area_entered"]
+[connection signal="area_exited" from="Interaction" to="." method="_on_interaction_area_exited"]
 [connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
 [connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
