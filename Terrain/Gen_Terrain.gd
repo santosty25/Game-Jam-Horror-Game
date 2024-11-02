@@ -93,4 +93,3 @@ func _on_spawn_timer_timeout():
 	
 	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
 	spawnTimer.wait_time = spawnInt
-	
