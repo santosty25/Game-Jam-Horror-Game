@@ -5,9 +5,10 @@ extends CharacterBody3D
 @onready var faceDir = $FaceDirection
 
 const SPEED = 1.0
-const fleeDistance = 10.0
-const fleeTime = 5.0
 
+@export var fleeDistance = 10.0
+@export var fleeTime = 5.0
+@export var fleeInt = 5.0
 @export var turnSpeed = 4.0
 @export var damageInt = 1.0
 @export var damage = 5.0
@@ -24,7 +25,7 @@ func _ready():
 func _physics_process(delta):
 	
 	if player:
-		if player.inside:
+		if player.getInside():
 			runAway(delta)
 		else:
 			chasePlayer(delta)
@@ -40,11 +41,15 @@ func chasePlayer(delta):
 	move_and_collide(velocity)
 
 func runAway(delta):
+	fleeTime -= delta
 	var runDir = (global_transform.origin - player.global_transform.origin).normalized()
 	
 	var runVelocity = runDir * SPEED * delta
 	move_and_collide(runVelocity)
 	
+	if fleeTime <= 0:
+		queue_free()
+		fleeTime = fleeInt
 	
 func _on_attack_region_body_entered(body):
 	if body.is_in_group("Player"):
@@ -62,6 +67,3 @@ func damagePlayer(delta):
 		# reset timer
 		damageTimer = damageInt
 		player.takeDamage(damage)
-
-func despawn():
-	queue_free()
