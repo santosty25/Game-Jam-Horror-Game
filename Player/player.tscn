@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://8dqet3mcvwte"]
+[gd_scene load_steps=19 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
 [ext_resource type="Shader" path="res://Camera/Outline.gdshader" id="2_6w3c5"]
 [ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
 [ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="2_yupws"]
+[ext_resource type="Script" path="res://Player/hearts_container.gd" id="5_n1y5c"]
+[ext_resource type="Texture2D" uid="uid://d2xhf6mag1uxw" path="res://Player/heart.png" id="6_a2k03"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]
 transparency = 2
@@ -111,6 +113,23 @@ shape = SubResource("SphereShape3D_rs5be")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
 mesh = SubResource("PlaneMesh_lkq8b")
 skeleton = NodePath("../Bottom")
+
+[node name="heartsContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_n1y5c")
+
+[node name="heart1" type="TextureRect" parent="heartsContainer"]
+layout_mode = 2
+texture = ExtResource("6_a2k03")
+
+[node name="heart2" type="TextureRect" parent="heartsContainer"]
+layout_mode = 2
+texture = ExtResource("6_a2k03")
+
+[node name="heart3" type="TextureRect" parent="heartsContainer"]
+layout_mode = 2
+texture = ExtResource("6_a2k03")
 
 [connection signal="area_entered" from="Interaction" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Interaction" to="." method="_on_interaction_area_exited"]

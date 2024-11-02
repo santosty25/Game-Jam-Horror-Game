@@ -60,7 +60,7 @@ func _process(delta):
 		#print(player.stickCounter)
 		pass
 	else:
-		print("Expired")
+		#print("Expired")
 		safe_timer.stop()
 		player.setInside(false)
 		emit_signal("timer_expired")  # Emit signal when timer expires

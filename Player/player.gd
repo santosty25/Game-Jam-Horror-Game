@@ -3,9 +3,11 @@ class_name Player
 
 const SPEED = 5.0
 
+signal health_changed(new_health)  # Signal for health changes
+
 var stickInRange = false
 var inside = false
-var health = 100
+var health = 3
 var stickCounter = 0
 
 var stix = load("res://Collectables/Stick.tscn")
@@ -65,7 +67,9 @@ func _physics_process(delta: float) -> void:
 	
 func takeDamage(damage):
 	health -= damage
-	print("Player took damage")
+	health = max(0, health)  # Prevent health from going below 0
+	print("Player took damage. Health is now:", health)
+	emit_signal("health_changed", health)  # Emit signal when health changes
 	
 func setInside(val):
 	makeOutlineWhite()
