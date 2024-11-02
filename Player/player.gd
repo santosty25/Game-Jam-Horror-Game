@@ -15,6 +15,8 @@ var stix
 @onready var collision = $"CollisionShape3D"
 @onready var camera = $"Camera3D"
 
+var inside = false
+
 func _ready():
 	stix = get_node("Stick")
 
@@ -45,3 +47,9 @@ func stick_nearby():
 func takeDamage(damage):
 	health -= damage
 	print("Player took damage")
+	
+func setInside(val):
+	inside = val
+	
+func getInside():
+	return inside
