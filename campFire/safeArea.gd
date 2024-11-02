@@ -1,5 +1,7 @@
 extends Area3D
 
+signal timer_expired  # Signal to notify when timer ends
+
 var healing_rate = 1.0  
 var player = null  
 var monster = null
@@ -54,13 +56,14 @@ func add_stick():
 func _process(delta):
 	# Countdown logic
 	if safe_timer.time_left > 1:
-		print("Time left in safe area:", int(safe_timer.time_left), "seconds")
-		print(player.stickCounter)
+		#print("Time left in safe area:", int(safe_timer.time_left), "seconds")
+		#print(player.stickCounter)
 		pass
 	else:
 		print("Expired")
 		safe_timer.stop()
 		player.setInside(false)
+		emit_signal("timer_expired")  # Emit signal when timer expires
 	
 	if player_in_interact_area and Input.is_action_just_pressed("Interact"):  # "interact" should be mapped to "E" in Input Map
 		add_stick()
