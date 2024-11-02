@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 @onready var navigation = $NavigationAgent3D
 @onready var faceDir = $FaceDirection
+@onready var mesh = $MeshInstance3D
 
 const SPEED = 1.0
 
@@ -18,12 +19,20 @@ var damageTimer = 0.0
 var isPlayerIn = false
 var flee = false
 
+var F1 = load("res://Monster/hand_1.png")
+var F2 = load("res://Monster/hand_2.png")
+var F3 = load("res://Monster/hand_3.png")
+var F4 = load("res://Monster/hand_4.png")
+var frameRate = 0.25
+var frames = [F1,F2,F3,F4]
+var frameCounter = 0
+var currentFrame = 0
+
 func _ready():
 	# get player node
 	player = get_tree().get_nodes_in_group("Player")[0]
 
 func _physics_process(delta):
-	
 	if player:
 		if player.getInside():
 			runAway(delta)
@@ -32,12 +41,19 @@ func _physics_process(delta):
 
 	if isPlayerIn:
 		damagePlayer(delta)
+		
+	frameCounter += delta
+	if frameCounter > frameRate:
+		frameCounter = 0
+		currentFrame = (currentFrame+1)%len(frames)
+		mesh.mesh.material.albedo_texture = frames[currentFrame]
 
 func chasePlayer(delta):
-	faceDir.look_at(player.global_transform.origin, Vector3.UP)
-	rotate_y(deg_to_rad(faceDir.rotation.y * turnSpeed))
+	#faceDir.look_at(player.global_transform.origin, Vector3.UP)
+	#rotate_y(deg_to_rad(faceDir.rotation.y * turnSpeed))
 	navigation.set_target_position(player.global_transform.origin)
 	var velocity = (navigation.get_next_path_position() - transform.origin).normalized() * SPEED * delta
+	check_direction(velocity)
 	move_and_collide(velocity)
 
 func runAway(delta):
@@ -45,11 +61,19 @@ func runAway(delta):
 	var runDir = (global_transform.origin - player.global_transform.origin).normalized()
 	
 	var runVelocity = runDir * SPEED * delta
+	check_direction(velocity)
 	move_and_collide(runVelocity)
 	
 	if fleeTime <= 0:
 		queue_free()
 		fleeTime = fleeInt
+	
+func check_direction(v):
+	if v.x < 0:
+		scale.x = -abs(scale.x)
+	else:
+		scale.x = abs(scale.x)
+
 	
 func _on_attack_region_body_entered(body):
 	if body.is_in_group("Player"):
