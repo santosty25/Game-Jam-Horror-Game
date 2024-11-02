@@ -1,21 +1,29 @@
 extends CharacterBody3D
+class_name Player
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+
+var stickInRange = null
+
+
+@export var player: Player
+var stix
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
 @onready var camera = $"Camera3D"
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+func _ready():
+	stix = get_node("Stick")
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	
+func _physics_process(delta: float) -> void:
+	
+	if stickInRange && Input.is_action_just_pressed("Interact"):
+		stickInRange.pickup()
+		stickInRange = null
+		
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -29,3 +37,6 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+func stick_nearby():
+	stickInRange = true
