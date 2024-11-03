@@ -1,6 +1,7 @@
 extends Area3D
 
 @export var messager: Messager
+@onready var addStick = $"../AddStick"
 
 signal timer_expired  # Signal to notify when timer ends
 
@@ -119,6 +120,8 @@ func _process(delta):
 		
 		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
 			add_stick()
+			if addStick.playing == false:
+				addStick.play()
 			
 		# Apply healing over time if the player is inside the radius
 		var ins = player.getInside()
