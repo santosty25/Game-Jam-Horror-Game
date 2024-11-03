@@ -34,6 +34,7 @@ signal requestRespawn
 func _ready():
 	# get player node
 	player = get_tree().get_nodes_in_group("Player")[0]
+	scale = Vector3(1.5,1.5,1.5)
 
 func _physics_process(delta):
 	if !paused:

@@ -11,6 +11,7 @@ signal health_changed(new_health)  # Signal for health changes
 var stickInRange = false
 var inside = false
 var health = 3
+var maxHealth = 3
 var stickCounter = 0
 var stickLocation = []
 var respondLoc = []
@@ -172,11 +173,17 @@ func getFull():
 
 func takeDamage(damage):
 	health -= damage
-	health = max(0, health)  # Prevent health from going below 0
+	health = min(max(0, health),maxHealth)  # Prevent health from going below 0
 	print("Player took damage. Health is now:", health)
 	emit_signal("health_changed", health)  # Emit signal when health changes
 	if health <= 0:
 		setMenu()
+		
+func heal(amount):
+	health += amount
+	health = min(max(0, health),maxHealth)  # Prevent health from going below 0
+	print("Player healed. Health is now:", health)
+	emit_signal("health_changed", health)  # Emit signal when health changes
 	
 func setInside(val):
 	makeOutlineWhite()
