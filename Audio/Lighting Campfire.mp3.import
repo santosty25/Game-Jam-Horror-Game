@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ddl6esgxnckg0"
+path="res://.godot/imported/Lighting Campfire.mp3-85eb6b361c44fa94b6b809b65e51a6f0.mp3str"
+
+[deps]
+
+source_file="res://Audio/Lighting Campfire.mp3"
+dest_files=["res://.godot/imported/Lighting Campfire.mp3-85eb6b361c44fa94b6b809b65e51a6f0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
