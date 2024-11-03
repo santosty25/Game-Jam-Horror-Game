@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="Texture2D" uid="uid://cnkts6bw2dt57" path="res://Player/arrow.png" id="3_s5i6o"]
-[ext_resource type="PackedScene" uid="uid://bajd6sv7rw7gj" path="res://Camera/Camera.tscn" id="3_sogib"]
+[ext_resource type="PackedScene" path="res://Camera/Camera.tscn" id="3_sogib"]
 [ext_resource type="Texture2D" uid="uid://l5313co6xudc" path="res://Collectables/Game_Jam_Sprites5.png" id="3_tfke5"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 [ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
@@ -57,8 +57,11 @@ offset_bottom = 40.0
 
 [node name="StickScore" type="Label" parent="UI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 73.0
+offset_top = 9.0
+offset_right = 136.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("6_wixdo")
 
 [node name="Messager" type="Label" parent="UI"]
 layout_mode = 1
@@ -82,19 +85,11 @@ script = ExtResource("7_t55rb")
 
 [node name="TextureRect" type="TextureRect" parent="UI"]
 layout_mode = 0
-offset_left = 1.0
+offset_left = 5.0
 offset_top = -31.0
-offset_right = 68.0
+offset_right = 72.0
 offset_bottom = 25.0
 texture = ExtResource("3_tfke5")
-
-[node name="StickScore2" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 66.0
-offset_top = 10.0
-offset_right = 106.0
-offset_bottom = 33.0
-theme_override_fonts/font = ExtResource("6_wixdo")
 
 [node name="directionalArrow" type="Sprite2D" parent="UI"]
 position = Vector2(1082.49, 510.233)
