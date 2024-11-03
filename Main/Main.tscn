@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=17 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
+[ext_resource type="Texture2D" uid="uid://cnkts6bw2dt57" path="res://Player/arrow.png" id="3_s5i6o"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 [ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
 [ext_resource type="Script" path="res://Main/Messsager.gd" id="7_t55rb"]
@@ -65,10 +66,16 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="directionalArrow" type="Sprite2D" parent="UI"]
+position = Vector2(1082.49, 510.233)
+scale = Vector2(0.0237938, 0.0378571)
+texture = ExtResource("3_s5i6o")
+offset = Vector2(1016.95, 18.3674)
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 60.0
+wait_time = 10.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0

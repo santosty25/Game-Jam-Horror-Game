@@ -7,7 +7,7 @@ var player = null
 var monster = null
 var safe_timer = null
 var player_in_interact_area = false  
-var max_time = 120.0
+var max_time = 10.0
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
@@ -34,9 +34,14 @@ func _on_interact_area_body_entered(body: Node3D) -> void:
 		player_in_interact_area = true
 		
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("Player"):
-		#print("Player entered the campfire area")
-		player.setInside(true)
+	if safe_timer.time_left > 1:
+		if body.is_in_group("Player"):
+			#print("Player entered the campfire area")
+			player.setInside(true)
+	else:
+		if body.is_in_group("Player"):
+			#print("Player entered the campfire area")
+			player.setInside(false)
 		
 func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
@@ -74,6 +79,6 @@ func _process(delta):
 		if player.health <= 3:
 			player.health += healing_rate * delta
 			#print("Player healed by", healing_rate * delta)
-			#print("Players health is now", player.health)
+			print("Players health is now", player.health)
 		#else:
 			#print("Player already at max health")
