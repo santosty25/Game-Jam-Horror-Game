@@ -39,6 +39,7 @@ var idle = load("res://Player/Idle.png")
 var frameRate = 0.25
 var frameCounter = 0
 var currentFrame = 0
+var scoreTimer = 0.0
 
 var camFollowForce = 5
 var maxCamDist = 5
@@ -59,7 +60,7 @@ var maxCamDist = 5
 @onready var restingAudio = $"Background Music/restingAudio"
 @onready var exploringAudio = $"Background Music/exploringAudio"
 @onready var chaseAudio = $"Background Music/chaseAudio"
-
+@onready var timerLabel = $"../UI/scoreTimer" # Adjust the path based on your scene structure
 
 func _ready() -> void:
 	setMenu()
@@ -165,6 +166,8 @@ func _physics_process(delta: float) -> void:
 		if (camPos-camTarget).length() > limit:
 			camPos = camTarget+(camPos-camTarget).normalized()*limit
 		cameraAnchor.position = camPos
+		scoreTimer += delta
+		update_timer_display()
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
 				stix.pickup()
@@ -212,6 +215,10 @@ func _physics_process(delta: float) -> void:
 			mesh.mesh.material.albedo_texture = idle
 		move_and_slide()
 
+func update_timer_display() -> void:
+	timerLabel.text = "Time Survived: %.2f" % scoreTimer  # Update the label text
+	print("inside")
+	
 func getRespondLoc():
 	return respondLoc
 
@@ -225,6 +232,7 @@ func takeDamage(damage):
 	print("Player took damage. Health is now:", health)
 	emit_signal("health_changed", health)  # Emit signal when health changes
 	if health <= 0:
+		scoreTimer = 0
 		setMenu()
 		animate_death()
 		

@@ -114,6 +114,18 @@ scale = Vector2(0.0237938, 0.0378571)
 texture = ExtResource("3_s5i6o")
 offset = Vector2(1016.95, 18.3674)
 
+[node name="scoreTimer" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 521.0
+offset_top = 10.0
+offset_right = 571.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+
 [node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_w78l0")
 
@@ -134,7 +146,6 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 30.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
