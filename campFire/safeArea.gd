@@ -10,7 +10,7 @@ var player = null
 var monster = null
 var safe_timer = null
 var player_in_interact_area = false  
-var max_time = 120.0
+var max_time = 10.0
 var light_radius = null
 var radius_decrease_interval = 1.0  # Time interval for radius decrease in seconds
 var time_since_last_decrease = 0.0   # Time tracker
@@ -116,8 +116,11 @@ func _process(delta):
 		else:
 			#print("Expired")
 			safe_timer.stop()
-			player.setInside(false)
-			emit_signal("timer_expired")  # Emit signal when timer expires
+			if !player.chase:
+				player.setInside(false)
+				player.startChase()
+				emit_signal("timer_expired")  # Emit signal when timer expires
+				
 		
 		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
 			add_stick()

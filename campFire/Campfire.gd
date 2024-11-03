@@ -11,6 +11,8 @@ var flickerCounter = 0
 var t = true
 var timerEnd = false
 
+signal fire_extinguished
+
 func setMenu():
 	timer.paused = true
 	safe_area.paused = true
@@ -41,3 +43,8 @@ func _physics_process(delta: float) -> void:
 func _on_timer_expired():
 	timerEnd = true
 	$OmniLight3D.light_energy = 0
+
+func _on_safe_area_timer_expired() -> void:
+	if $interactArea:
+		$interactArea.queue_free()
+	emit_signal("fire_extinguished")

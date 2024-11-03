@@ -16,9 +16,10 @@ texture_filter = 2
 [sub_resource type="PlaneMesh" id="PlaneMesh_joi50"]
 material = SubResource("StandardMaterial3D_idpfx")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5bwuf"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_s4l3p"]
+radius = 0.322709
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wiaut"]
 
 [node name="Monster" type="CharacterBody3D"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -27,9 +28,6 @@ script = ExtResource("1_hp6x5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PlaneMesh_joi50")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_5bwuf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = -1.0
@@ -50,5 +48,8 @@ omni_range = 10.0
 
 [node name="Move" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_wfbtx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wiaut")
 
 [connection signal="body_entered" from="AttackRegion" to="." method="_on_attack_region_body_entered"]
