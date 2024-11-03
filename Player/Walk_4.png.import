@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ygu5fo560vny"
-path.s3tc="res://.godot/imported/Player_1.png-230d4f3456421ae1f560880f477cab41.s3tc.ctex"
+uid="uid://ct4r7f6hk14ho"
+path="res://.godot/imported/Walk_4.png-9c471c5db864f87203192c1b476d4475.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Player_1.png"
-dest_files=["res://.godot/imported/Player_1.png-230d4f3456421ae1f560880f477cab41.s3tc.ctex"]
+source_file="res://Player/Walk_4.png"
+dest_files=["res://.godot/imported/Walk_4.png-9c471c5db864f87203192c1b476d4475.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
-[ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
+[ext_resource type="Texture2D" uid="uid://b6m833rrsmq34" path="res://Player/Walk_2.png" id="2_ss3re"]
 [ext_resource type="AudioStream" uid="uid://bpvnbt4jkkwah" path="res://Audio/REST.wav" id="5_e5qui"]
 [ext_resource type="Script" path="res://Player/hearts_container.gd" id="5_n1y5c"]
 [ext_resource type="AudioStream" uid="uid://cswi3jg2a8ofd" path="res://Audio/Exploring.wav" id="6_3rek6"]

@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ygu5fo560vny"
-path.s3tc="res://.godot/imported/Player_1.png-230d4f3456421ae1f560880f477cab41.s3tc.ctex"
+uid="uid://dms8bawbp05hb"
+path="res://.godot/imported/Idle.png-b3ec9f46c369625f7a6b3c44a08ff13f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Player_1.png"
-dest_files=["res://.godot/imported/Player_1.png-230d4f3456421ae1f560880f477cab41.s3tc.ctex"]
+source_file="res://Player/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-b3ec9f46c369625f7a6b3c44a08ff13f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

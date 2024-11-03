@@ -11,6 +11,7 @@ signal health_changed(new_health)  # Signal for health changes
 var stickInRange = false
 var inside = false
 var health = 3
+var maxHealth = 3
 var stickCounter = 0
 var stickLocation = []
 var respondLoc = []
@@ -29,14 +30,17 @@ var camPosStart = Vector3.ZERO
 var stix = load("res://Collectables/Stick.tscn")
 var stickHint = "Press (E) to pick up STICK"
 
-var frames = [load("res://Player/Player_1.png"),load("res://Player/Player_2.png"),load("res://Player/Player_3.png")]
-var idle = frames[1]
+var frames = [load("res://Player/Walk_1.png"),load("res://Player/Walk_2.png"),load("res://Player/Walk_3.png"),load("res://Player/Walk_4.png")]
+var idle = load("res://Player/Idle.png")
 var frameRate = 0.25
 var frameCounter = 0
 var currentFrame = 0
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
+@onready var walking = $Walking
+@onready var pickup = $Pickup
+@onready var damagePlayer = $Damage
 @export var cameraAnchor: CameraAnchor
 @onready  var camera = cameraAnchor.getCamera()
 @onready var shader = cameraAnchor.getShader()
@@ -46,6 +50,7 @@ var currentFrame = 0
 @export var messager: Messager
 @onready var restingAudio = $restingAudio
 @onready var exploringAudio = $exploringAudio
+
 
 func _ready() -> void:
 	setMenu()
@@ -124,6 +129,7 @@ func _physics_process(delta: float) -> void:
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
 				stix.pickup()
+				pickup.play()
 				stickLocation.append(stix.getPosition())
 				print(stickLocation.size())
 				print(stickLocation)
@@ -142,9 +148,13 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("Left", "Right", "Up", "Down")
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
+			if walking.playing == false:
+				walking.play()
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 		else:
+			if walking.playing == true:
+				walking.stop()
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 			
@@ -171,11 +181,18 @@ func getFull():
 
 func takeDamage(damage):
 	health -= damage
-	health = max(0, health)  # Prevent health from going below 0
+	damagePlayer.play()
+	health = min(max(0, health),maxHealth)  # Prevent health from going below 0
 	print("Player took damage. Health is now:", health)
 	emit_signal("health_changed", health)  # Emit signal when health changes
 	if health <= 0:
 		setMenu()
+		
+func heal(amount):
+	health += amount
+	health = min(max(0, health),maxHealth)  # Prevent health from going below 0
+	print("Player healed. Health is now:", health)
+	emit_signal("health_changed", health)  # Emit signal when health changes
 	
 func setInside(val):
 	makeOutlineWhite()

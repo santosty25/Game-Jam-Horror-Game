@@ -4,6 +4,9 @@ extends HBoxContainer
 @onready var heart2 = $heart2
 @onready var heart3 = $heart3
 
+var heartFull = load("res://Player/Bone.png")
+var heartEmpty = load("res://Player/Bone_Broken.png")
+
 var player = null
 
 # Called when the node enters the scene tree for the first time.
@@ -20,9 +23,12 @@ func _ready() -> void:
 
 func _on_health_changed(new_health):
 	# Show or hide hearts based on player's current health
-	heart1.visible = new_health >= 1
-	heart2.visible = new_health >= 2
-	heart3.visible = new_health >= 3
+	var hearts = [heart3,heart2,heart1]
+	for i in range(len(hearts)):
+		if len(hearts)-new_health > i:
+			hearts[i].texture = heartEmpty
+		else:
+			hearts[i].texture = heartFull
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

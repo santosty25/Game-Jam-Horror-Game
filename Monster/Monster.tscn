@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://6axjr6y6a05l"]
+[gd_scene load_steps=8 format=3 uid="uid://6axjr6y6a05l"]
 
 [ext_resource type="Script" path="res://Monster/Monster.gd" id="1_hp6x5"]
 [ext_resource type="Texture2D" uid="uid://c3s0mivf0e5o6" path="res://Monster/hand_1.png" id="2_3xy2y"]
+[ext_resource type="AudioStream" uid="uid://bnxwa4e0ytqqw" path="res://Main/MonsterWalk.mp3" id="3_wfbtx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idpfx"]
 transparency = 2
@@ -20,6 +21,7 @@ material = SubResource("StandardMaterial3D_idpfx")
 [sub_resource type="SphereShape3D" id="SphereShape3D_s4l3p"]
 
 [node name="Monster" type="CharacterBody3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_hp6x5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -35,6 +37,7 @@ path_height_offset = -1.0
 [node name="FaceDirection" type="Node3D" parent="."]
 
 [node name="AttackRegion" type="Area3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRegion"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -44,5 +47,8 @@ shape = SubResource("SphereShape3D_s4l3p")
 light_color = Color(1, 0, 0, 1)
 light_energy = 2.0
 omni_range = 10.0
+
+[node name="Move" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_wfbtx")
 
 [connection signal="body_entered" from="AttackRegion" to="." method="_on_attack_region_body_entered"]
