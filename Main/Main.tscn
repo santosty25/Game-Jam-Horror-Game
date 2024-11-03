@@ -42,8 +42,9 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_h8qr7")
 size = Vector2(5, 2)
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_pa3v3")
+player = NodePath("Player")
 
 [node name="TerrainManager" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_rlcv6")
@@ -117,7 +118,7 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 60.0
+wait_time = 10.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
@@ -339,9 +340,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -163.0
+offset_left = -283.0
 offset_top = 517.0
-offset_right = 163.0
+offset_right = -45.0
 offset_bottom = 586.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -352,10 +353,40 @@ theme_override_font_sizes/font_size = 40
 text = "Resume"
 flat = true
 
+[node name="Back" type="Button" parent="MenuItems/Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 517.0
+offset_right = 315.0
+offset_bottom = 586.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "Main Menu
+"
+flat = true
+
+[node name="ColorRect" type="ColorRect" parent="MenuItems"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 1165.0
+offset_bottom = 664.0
+color = Color(0, 0, 0, 1)
+
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]
 [connection signal="pressed" from="MenuItems/MainMenu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MenuItems/MainMenu/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MenuItems/MainMenu/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="MenuItems/GameOver/Restart" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MenuItems/GameOver/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MenuItems/Pause/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MenuItems/Pause/Back" to="." method="_on_back_pressed"]

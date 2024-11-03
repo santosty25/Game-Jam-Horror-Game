@@ -13,7 +13,7 @@ var monsters = []
 @onready var stickScore = $UI/StickScore
 @onready var campfire = $CampFire
 @onready var terrainManager = $TerrainManager
-@onready var player: Player = get_node("Player")
+@export var player: Player
 @onready var messager: Messager = $UI/Messager
 @onready var eyes: Eyes = $Player/Eyes
 @onready var compassArrow = $UI/directionalArrow
@@ -21,6 +21,7 @@ var monsters = []
 @onready var mainUI = $MenuItems/MainMenu
 @onready var pauseUI = $MenuItems/Pause
 @onready var endUI = $MenuItems/GameOver
+@onready var fadeOut = $MenuItems/ColorRect
 
 var monsterHint = "It is pitch black. You are likely to be eaten by a grue."
 var monsterHinted = false
@@ -28,9 +29,14 @@ var spawnInt = 10.0 # timer for monsters to spawn
 var minSpawnInt = 2.0 # fastest time monsters will start spawning
 var intervalDecrement = 1.0 # value for slowly decreasing spawn timer
 var camp_fire = null
+var fadeOutTimer = 1
+var reset = false
 
 func _ready() -> void:
 	setMenu()
+	for each in get_tree().root.get_children():
+		if each != self:
+			each.queue_free()
 	
 func setMenu():
 	campfire.setMenu()
@@ -74,27 +80,32 @@ func startGame():
 		terrainManager.generate()
 	player.setGameplay()
 	campfire.setGameplay()
-	eyes.visible = true
 	ui.visible = true
-	mainUI.visible = false
-	pauseUI.visible = false
-	endUI.visible = false
+	eyes.visible = true
 	monsterTimer.paused = false
 	spawnTimer.paused = false
 	pauseMonsters(false)
+	
+func hideUI():
+	mainUI.visible = false
+	pauseUI.visible = false
+	endUI.visible = false
 
 func _on_start_pressed() -> void:
+	hideUI()
 	menuTransition = true
 	menu = false
 	player.animateMenuTransition()
 	
 func _on_quit_pressed() -> void:
+	hideUI()
 	get_tree().quit()
 
 func _on_credits_pressed() -> void:
 	pass 
 	
 func _on_resume_pressed() -> void:
+	hideUI()
 	menuTransition = true
 	player.animateMenuTransition()
 
@@ -109,7 +120,23 @@ func _process(delta: float) -> void:
 				menuTransition = true
 				player.animateMenuTransition()
 
+func smoothPercentage(p):
+	return -0.5*cos(PI*p)+0.5
+
 func _physics_process(delta: float) -> void:
+	if !reset:
+		if fadeOutTimer > 0:
+			fadeOutTimer -= delta*0.5
+			fadeOut.color = Color(0,0,0,smoothPercentage(fadeOutTimer))
+		elif fadeOut.visible:
+			fadeOut.visible = false
+	else:
+		fadeOut.visible = true
+		if fadeOutTimer < 1:
+			fadeOutTimer += delta*0.5
+			fadeOut.color = Color(0,0,0,smoothPercentage(fadeOutTimer))
+		elif fadeOut.visible:
+			get_tree().reload_current_scene()
 	if menuTransition:
 		if player.isready:
 			startGame()
@@ -178,3 +205,18 @@ func spawnMonster():
 func onRespawnRequest():
 	print("Respawning Monster")
 	spawnMonster()
+
+# reset game
+func _on_back_pressed() -> void:
+	hideUI()
+	reset = true
+	
+func _on_restart_pressed() -> void:
+	hideUI()
+	reset = true
+
+func _on_player_health_changed(new_health: Variant) -> void:
+	if new_health <= 0:
+		setEndMenu()
+		menu = true
+		player.animateMenuTransition(true)

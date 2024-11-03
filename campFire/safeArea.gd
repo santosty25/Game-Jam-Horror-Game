@@ -13,6 +13,9 @@ var radius_decrease_interval = 1.0  # Time interval for radius decrease in secon
 var time_since_last_decrease = 0.0   # Time tracker
 var radEverySecond = 2.5/max_time
 var paused = true
+var varyRadius = 0.1
+var varyTimer = 0
+var varyTimerMax = 2
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
@@ -70,8 +73,20 @@ func add_stick():
 		light_radius.mesh.set_bottom_radius(currentLightRadius + increaseAmount)
 		player.stickCounter -= 1
 		
+func setLightRadius(top,bottom):
+	light_radius.mesh.set_top_radius(top)
+	light_radius.mesh.set_bottom_radius(bottom)
+		
 func _process(delta):
 	# Countdown logic
+	if varyTimer < varyTimerMax:
+		varyTimer += delta
+	else:
+		varyTimer = 0
+	var r = 1+varyRadius*sin(2*PI*varyTimer/varyTimerMax)
+	light_radius.scale.x = r
+	light_radius.scale.z = r
+	
 	if !paused:
 		if safe_timer.time_left > 1:
 			time_since_last_decrease += delta
@@ -79,8 +94,7 @@ func _process(delta):
 				time_since_last_decrease = 0.0
 				#decrease the light radius
 				var currentLightRadius = light_radius.mesh.top_radius
-				light_radius.mesh.set_top_radius(currentLightRadius - radEverySecond)
-				light_radius.mesh.set_bottom_radius(currentLightRadius - radEverySecond)
+				setLightRadius(currentLightRadius-radEverySecond,currentLightRadius-radEverySecond)
 		else:
 			#print("Expired")
 			safe_timer.stop()
