@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=26 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Main/Messsager.gd" id="7_t55rb"]
 [ext_resource type="Script" path="res://Main/Eyes.gd" id="7_y47h2"]
 [ext_resource type="PackedScene" uid="uid://cu33ucdc0m26b" path="res://Terrain/Grass/Grass.tscn" id="9_fchas"]
+[ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="10_dbhi4"]
 [ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="10_mfuor"]
 [ext_resource type="AudioStream" uid="uid://bp2us5veftt5i" path="res://Audio/Monster Times Up.mp3" id="13_5h1x6"]
 [ext_resource type="Texture2D" uid="uid://c3emrc08jfg51" path="res://Terrain/Tent/tent.png" id="13_m6735"]
@@ -160,6 +161,9 @@ mesh = SubResource("SphereMesh_485wi")
 [node name="Cover" type="MeshInstance3D" parent="Player/Eyes"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.62929, -3.4332)
 mesh = SubResource("PlaneMesh_5kvqm")
+
+[node name="Monster" parent="Player" instance=ExtResource("10_dbhi4")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4.61299, 0, 4.85522)
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 
@@ -540,6 +544,7 @@ volume_db = 20.0
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]
+[connection signal="fire_extinguished" from="CampFire" to="." method="_on_camp_fire_fire_extinguished"]
 [connection signal="pressed" from="MenuItems/MainMenu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MenuItems/MainMenu/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MenuItems/MainMenu/Quit" to="." method="_on_quit_pressed"]

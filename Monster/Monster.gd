@@ -6,7 +6,7 @@ extends CharacterBody3D
 @onready var mesh = $MeshInstance3D
 @onready var move = $Move
 
-const SPEED = 1.0
+const SPEED = 2.0
 
 @export var fleeDistance = 10.0
 @export var fleeTime = 5.0
@@ -74,7 +74,7 @@ func runAway(delta):
 	var runDir = (global_transform.origin - player.global_transform.origin).normalized()
 	
 	var runVelocity = runDir * SPEED * delta
-	check_direction(velocity)
+	check_direction(runVelocity)
 	move_and_collide(runVelocity)
 	
 	if fleeTime <= 0:

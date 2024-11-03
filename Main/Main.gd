@@ -131,7 +131,7 @@ func smoothPercentage(p):
 	return -0.5*cos(PI*p)+0.5
 
 func _physics_process(delta: float) -> void:
-	print(monsterTimer.time_left)
+	#print(monsterTimer.time_left)
 	if !reset:
 		if fadeOutTimer > 0:
 			fadeOutTimer -= delta*0.5
@@ -224,7 +224,8 @@ func spawnMonster():
 	if dir.length() == 0:
 		dir = player.transform.basis.z.normalized() * -1
 	
-	var spawn = player.global_transform.origin + dir * 15.0
+	dir = dir.rotated(Vector3(0,1,0),(randf()-0.5)*PI)
+	var spawn = player.global_transform.origin + dir * 8.0
 	monster.global_transform.origin = spawn
 	monster.connect("requestRespawn", Callable(self, "onRespawnRequest"))
 	monsters.append(monster)
@@ -252,3 +253,15 @@ func _on_player_health_changed(new_health: Variant) -> void:
 
 func _on_credits_back_pressed() -> void:
 	creditsShown = false
+
+
+func _on_camp_fire_fire_extinguished() -> void:
+	eyes.uncover()
+	spawnTimer.wait_time = 5
+	spawnTimer.start()
+	monsterTimer.wait_time = 0
+	spawnMonster()
+	spawnMonster()
+	spawnMonster()
+	spawnMonster()
+	spawnMonster()

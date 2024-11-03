@@ -66,5 +66,6 @@ stream = ExtResource("4_t6wjv")
 
 [connection signal="body_entered" from="safeArea" to="safeArea" method="_on_body_entered"]
 [connection signal="body_exited" from="safeArea" to="safeArea" method="_on_body_exited"]
+[connection signal="timer_expired" from="safeArea" to="." method="_on_safe_area_timer_expired"]
 [connection signal="body_entered" from="interactArea" to="safeArea" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="interactArea" to="safeArea" method="_on_interact_area_body_exited"]

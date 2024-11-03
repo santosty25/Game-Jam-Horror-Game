@@ -116,8 +116,11 @@ func _process(delta):
 		else:
 			#print("Expired")
 			safe_timer.stop()
-			player.setInside(false)
-			emit_signal("timer_expired")  # Emit signal when timer expires
+			if !player.chase:
+				player.setInside(false)
+				player.startChase()
+				emit_signal("timer_expired")  # Emit signal when timer expires
+				
 		
 		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
 			add_stick()
