@@ -44,16 +44,22 @@ var currentFrame = 0
 @onready var interaction = $Interaction
 @onready var heartsContainer = $heartsContainer
 @export var messager: Messager
+@onready var restingAudio = $restingAudio
+@onready var exploringAudio = $exploringAudio
 
 func _ready() -> void:
 	setMenu()
+	restingAudio.playing = true
 
 func setMenu():
+	restingAudio.playing = true
 	menu = true
 	heartsContainer.visible = false
-	
+
 func setGameplay():
 	menu = false
+	if inside:
+		restingAudio.playing = true
 	camera.position.y = gameplayConfigVals[0]
 	camera.position.z = gameplayConfigVals[1]
 	shader.set("shader_parameter/center",Vector3(0,0,gameplayConfigVals[2]))
@@ -113,6 +119,7 @@ func _physics_process(delta: float) -> void:
 					transitionToMenu = false
 					setMenu()
 	else:
+		#restingAudio.playing = false
 		cameraAnchor.position = position
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
@@ -155,7 +162,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			mesh.mesh.material.albedo_texture = idle
 		move_and_slide()
-	
+
 func getRespondLoc():
 	return respondLoc
 
@@ -182,6 +189,7 @@ func makeOutlineRed():
 func makeOutlineWhite():
 	shader.set("shader_parameter/threat_near",false)
 
+#stick interaction
 func _on_interaction_area_entered(area: Area3D) -> void:
 	if area.get_parent() is Stick && stickCounter < 5:
 		stix = area.get_parent()

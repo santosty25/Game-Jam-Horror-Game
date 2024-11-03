@@ -23,14 +23,13 @@ func _ready():
 	monster = get_tree().get_root().get_node("Main/Monster")
 	safe_timer = $Timer
 	light_radius = $"../lightRadius"
-		
 	if player == null:
 		print("Player node not found. Check the node path.")
 	
 	safe_timer.wait_time = max_time
 	safe_timer.start()
 	#fix number 3
-	
+
 func _on_interact_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		#print("Player exited interact area")
@@ -41,12 +40,15 @@ func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):  # Assumes player is part of a "Player" group
 		#print("Player entered interact area")
 		player_in_interact_area = true
+		player.restingAudio.playing = true
 		
 func _on_body_entered(body: Node3D) -> void:
 	if safe_timer.time_left > 1:
 		if body.is_in_group("Player"):
 			#print("Player entered the campfire area")
 			player.setInside(true)
+			player.exploringAudio.playing = false
+			player.restingAudio.playing = true
 	else:
 		if body.is_in_group("Player"):
 			#print("Player entered the campfire area")
@@ -56,6 +58,8 @@ func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		#print("Player left the campfire area")
 		player.setInside(false)
+		player.restingAudio.playing = false
+		player.exploringAudio.playing = true
 		
 # Function to add time to the timer
 # Function to add time to the timer
