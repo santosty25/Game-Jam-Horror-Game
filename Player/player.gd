@@ -78,6 +78,8 @@ func move(start, end, percent):
 	return (end-start)*p+start
 
 func _physics_process(delta: float) -> void:
+	if position.y > 0:
+		position.y = 0
 	if menu:
 		if !transitionToGameplay && !transitionToMenu:
 			cameraAnchor.rotate(Vector3(0,1,0),ROTSPEED*delta)
