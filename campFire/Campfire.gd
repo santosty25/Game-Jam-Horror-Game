@@ -13,9 +13,11 @@ var timerEnd = false
 
 func setMenu():
 	timer.paused = true
+	safe_area.paused = true
 	
 func setGameplay():
 	timer.paused = false
+	safe_area.paused = false
 
 func _ready():
 	# Connect to safeArea's timer_expired signal

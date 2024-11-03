@@ -12,6 +12,7 @@ var light_radius = null
 var radius_decrease_interval = 1.0  # Time interval for radius decrease in seconds
 var time_since_last_decrease = 0.0   # Time tracker
 var radEverySecond = 2.5/max_time
+var paused = true
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
@@ -71,29 +72,30 @@ func add_stick():
 		
 func _process(delta):
 	# Countdown logic
-	if safe_timer.time_left > 1:
-		time_since_last_decrease += delta
-		if time_since_last_decrease >= radius_decrease_interval:
-			time_since_last_decrease = 0.0
-			#decrease the light radius
-			var currentLightRadius = light_radius.mesh.top_radius
-			light_radius.mesh.set_top_radius(currentLightRadius - radEverySecond)
-			light_radius.mesh.set_bottom_radius(currentLightRadius - radEverySecond)
-	else:
-		#print("Expired")
-		safe_timer.stop()
-		player.setInside(false)
-		emit_signal("timer_expired")  # Emit signal when timer expires
-	
-	if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
-		add_stick()
+	if !paused:
+		if safe_timer.time_left > 1:
+			time_since_last_decrease += delta
+			if time_since_last_decrease >= radius_decrease_interval:
+				time_since_last_decrease = 0.0
+				#decrease the light radius
+				var currentLightRadius = light_radius.mesh.top_radius
+				light_radius.mesh.set_top_radius(currentLightRadius - radEverySecond)
+				light_radius.mesh.set_bottom_radius(currentLightRadius - radEverySecond)
+		else:
+			#print("Expired")
+			safe_timer.stop()
+			player.setInside(false)
+			emit_signal("timer_expired")  # Emit signal when timer expires
 		
-	# Apply healing over time if the player is inside the radius
-	var ins = player.getInside()
-	if ins and player and is_instance_valid(player):
-		if player.health <= 3:
-			player.health += healing_rate * delta
-			#print("Player healed by", healing_rate * delta)
-			print("Players health is now", player.health)
-		#else:
-			#print("Player already at max health")
+		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
+			add_stick()
+			
+		# Apply healing over time if the player is inside the radius
+		var ins = player.getInside()
+		if ins and player and is_instance_valid(player):
+			if player.health <= 3:
+				player.health += healing_rate * delta
+				#print("Player healed by", healing_rate * delta)
+				print("Players health is now", player.health)
+			#else:
+				#print("Player already at max health")
