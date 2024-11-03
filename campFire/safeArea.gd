@@ -86,8 +86,13 @@ func add_stick():
 		# Increase the light radius
 		var increaseAmount = timeAdded * radEverySecond  # Calculate the increase
 		var currentLightRadius = light_radius.mesh.top_radius
-		light_radius.mesh.set_top_radius(currentLightRadius + increaseAmount)
-		light_radius.mesh.set_bottom_radius(currentLightRadius + increaseAmount)
+		if (currentLightRadius + increaseAmount) > 2.5:
+			light_radius.mesh.set_top_radius(2.5)
+			light_radius.mesh.set_bottom_radius(2.5)
+			print("at max possible")
+		else:
+			light_radius.mesh.set_top_radius(currentLightRadius + increaseAmount)
+			light_radius.mesh.set_bottom_radius(currentLightRadius + increaseAmount)
 		player.stickCounter -= 1
 		
 func setLightRadius(top,bottom):
