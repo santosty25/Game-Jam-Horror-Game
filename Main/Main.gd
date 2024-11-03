@@ -120,6 +120,7 @@ func _process(delta: float) -> void:
 				menu = true
 				player.animateMenuTransition(true)
 			else:
+				hideUI()
 				menuTransition = true
 				player.animateMenuTransition()
 

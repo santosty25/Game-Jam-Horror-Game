@@ -14,6 +14,7 @@ var SAFE_DIST = 10 # dont generate in this radius
 
 # Called when the node enters the scene tree for the first time.
 func generate() -> void:
+	print("generate")
 	# on load - generate 10 sticks
 	generateStick(50)
 	
