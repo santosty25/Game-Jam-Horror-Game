@@ -23,8 +23,9 @@ size = Vector2(1000, 1000)
 [node name="Main" type="Node3D"]
 script = ExtResource("1_pa3v3")
 
-[node name="TerrainManager" type="Node3D" parent="."]
+[node name="TerrainManager" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_rlcv6")
+player = NodePath("../Player")
 
 [node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_w78l0")
