@@ -71,7 +71,7 @@ func _process(delta):
 	# Apply healing over time if the player is inside the radius
 	var ins = player.getInside()
 	if ins and player and is_instance_valid(player):
-		if player.health <= 100:
+		if player.health <= 3:
 			player.health += healing_rate * delta
 			#print("Player healed by", healing_rate * delta)
 			#print("Players health is now", player.health)
