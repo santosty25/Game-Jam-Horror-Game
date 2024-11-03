@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://Main/Eyes.gd" id="7_y47h2"]
 [ext_resource type="PackedScene" uid="uid://cu33ucdc0m26b" path="res://Terrain/Grass/Grass.tscn" id="9_fchas"]
 [ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="10_mfuor"]
-[ext_resource type="Texture2D" uid="uid://c3emrc08jfg51" path="res://Terrain/Tent/tent.png" id="13_m6735"]
 [ext_resource type="AudioStream" uid="uid://bp2us5veftt5i" path="res://Audio/Monster Times Up.mp3" id="13_5h1x6"]
+[ext_resource type="Texture2D" uid="uid://c3emrc08jfg51" path="res://Terrain/Tent/tent.png" id="13_m6735"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
