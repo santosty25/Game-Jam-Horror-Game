@@ -7,12 +7,13 @@ var stick = load("res://Collectables/Stick.tscn")
 var terrain_items = []
 var COUNT = 1000 # how many to gen
 var DISTANCE = 100 # radius from center
+var SAFE_DIST = 10 # dont generate in this radius
 
 #@onready var player = get_node("Player")
 @export var player: Player
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func generate() -> void:
 	# on load - generate 10 sticks
 	generateStick(50)
 	
@@ -28,8 +29,11 @@ func _ready() -> void:
 		# assign random position and show
 		node.position.x = (randf()-0.5)*DISTANCE*2
 		node.position.z = (randf()-0.5)*DISTANCE*2
-		terrain_items.append(node)
-		add_child(node)
+		if node.position.length() < SAFE_DIST:
+			node.queue_free()
+		else:
+			terrain_items.append(node)
+			add_child(node)
 		
 #func generateStick(num: int):
 	#for i in range(num):

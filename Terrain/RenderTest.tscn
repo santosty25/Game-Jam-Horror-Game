@@ -33,6 +33,7 @@ shader_parameter/center = Vector3(0, 0, -5.1)
 shader_parameter/outline_thickness = 0.05
 shader_parameter/enable_outline = true
 shader_parameter/threat_near = false
+shader_parameter/rotation = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_7iq8f"]
 material = SubResource("ShaderMaterial_6a33k")

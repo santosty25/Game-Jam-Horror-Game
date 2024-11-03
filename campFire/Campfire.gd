@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var sprite = $Sprite
 @onready var safe_area = $safeArea  
+@onready var timer = $safeArea/Timer  
 var t1 = load("res://campFire/Fire_1.png")
 var t2 = load("res://campFire/Fire_2.png")
 var t3 = load("res://campFire/Fire_3.png")
@@ -9,6 +10,12 @@ var flickerTime = 0.5
 var flickerCounter = 0
 var t = true
 var timerEnd = false
+
+func setMenu():
+	timer.paused = true
+	
+func setGameplay():
+	timer.paused = false
 
 func _ready():
 	# Connect to safeArea's timer_expired signal
