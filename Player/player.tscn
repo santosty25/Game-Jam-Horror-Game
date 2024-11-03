@@ -1,16 +1,16 @@
 [gd_scene load_steps=9 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
-[ext_resource type="Texture2D" uid="uid://demt35wx50mjn" path="res://Player/Walk_2.png" id="2_ss3re"]
+[ext_resource type="Texture2D" uid="uid://ygu5fo560vny" path="res://Player/Player_1.png" id="2_6xtek"]
+[ext_resource type="Texture2D" uid="uid://c3gd4revvjerj" path="res://Player/Bone.png" id="3_ik4py"]
 [ext_resource type="Script" path="res://Player/hearts_container.gd" id="5_n1y5c"]
-[ext_resource type="Texture2D" uid="uid://d2xhf6mag1uxw" path="res://Player/heart.png" id="6_a2k03"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_texture = ExtResource("2_ss3re")
+albedo_texture = ExtResource("2_6xtek")
 backlight = Color(1, 1, 1, 1)
 texture_filter = 2
 
@@ -42,23 +42,26 @@ shape = SubResource("SphereShape3D_rs5be")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -104.0
-offset_bottom = 37.0
+offset_left = -278.0
+offset_bottom = 86.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 script = ExtResource("5_n1y5c")
 
-[node name="heart1" type="TextureRect" parent="heartsContainer"]
+[node name="heart3" type="TextureRect" parent="heartsContainer"]
 layout_mode = 2
-texture = ExtResource("6_a2k03")
+texture = ExtResource("3_ik4py")
+expand_mode = 2
 
 [node name="heart2" type="TextureRect" parent="heartsContainer"]
 layout_mode = 2
-texture = ExtResource("6_a2k03")
+texture = ExtResource("3_ik4py")
+expand_mode = 2
 
-[node name="heart3" type="TextureRect" parent="heartsContainer"]
+[node name="heart1" type="TextureRect" parent="heartsContainer"]
 layout_mode = 2
-texture = ExtResource("6_a2k03")
+texture = ExtResource("3_ik4py")
+expand_mode = 2
 
 [connection signal="area_entered" from="Interaction" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Interaction" to="." method="_on_interaction_area_exited"]

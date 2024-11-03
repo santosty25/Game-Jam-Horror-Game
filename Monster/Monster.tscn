@@ -20,6 +20,7 @@ material = SubResource("StandardMaterial3D_idpfx")
 [sub_resource type="SphereShape3D" id="SphereShape3D_s4l3p"]
 
 [node name="Monster" type="CharacterBody3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_hp6x5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

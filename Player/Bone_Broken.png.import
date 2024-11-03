@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2x0egskkd6r5"
-path="res://.godot/imported/Walk_3.png-7c463e286b861998873cd7d979304f42.ctex"
+uid="uid://b3nb3nag4kq0l"
+path="res://.godot/imported/Bone_Broken.png-3d89d7760050c096fb2de52b7009aab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Walk_3.png"
-dest_files=["res://.godot/imported/Walk_3.png-7c463e286b861998873cd7d979304f42.ctex"]
+source_file="res://Player/Bone_Broken.png"
+dest_files=["res://.godot/imported/Bone_Broken.png-3d89d7760050c096fb2de52b7009aab5.ctex"]
 
 [params]
 
