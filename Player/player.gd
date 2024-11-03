@@ -26,11 +26,14 @@ var ttime = 0
 var camRotStart = 0
 var isready = false
 var camPosStart = Vector3.ZERO
+var dead = false
+var deathFrameRate = 0.35
 
 var stix = load("res://Collectables/Stick.tscn")
 var stickHint = "Press (E) to pick up STICK"
 
 var frames = [load("res://Player/Walk_1.png"),load("res://Player/Walk_2.png"),load("res://Player/Walk_3.png"),load("res://Player/Walk_4.png")]
+var deathFrames = [load("res://Player/death_1.png"),load("res://Player/death_2.png"),load("res://Player/death_3.png"),load("res://Player/death_4.png"),load("res://Player/death_5.png")]
 var idle = load("res://Player/Idle.png")
 var frameRate = 0.25
 var frameCounter = 0
@@ -84,7 +87,15 @@ func move(start, end, percent):
 func _physics_process(delta: float) -> void:
 	if position.y > 0:
 		position.y = 0
+	if dead:
+		frameCounter += delta
+		if frameCounter > deathFrameRate && currentFrame < len(deathFrames)-1:
+			frameCounter = 0
+			currentFrame = (currentFrame+1)
+			mesh.mesh.material.albedo_texture = deathFrames[currentFrame]
 	if menu:
+		if !dead:
+			mesh.mesh.material.albedo_texture = idle
 		if !transitionToGameplay && !transitionToMenu:
 			cameraAnchor.rotate(Vector3(0,1,0),ROTSPEED*delta)
 			shader.set("shader_parameter/rotation",-cameraAnchor.rotation.y)
@@ -116,7 +127,7 @@ func _physics_process(delta: float) -> void:
 				if p >= 1:
 					transitionToMenu = false
 					setMenu()
-	else:
+	elif !dead:
 		cameraAnchor.position = position
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
@@ -178,6 +189,7 @@ func takeDamage(damage):
 	emit_signal("health_changed", health)  # Emit signal when health changes
 	if health <= 0:
 		setMenu()
+		animate_death()
 		
 func heal(amount):
 	health += amount
@@ -209,3 +221,8 @@ func _on_interaction_area_exited(area: Area3D) -> void:
 		stickInRange = false
 		if messager:
 			messager.delMessage()
+
+func animate_death():
+	frameCounter = 0
+	currentFrame = 0
+	dead = true
