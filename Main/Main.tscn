@@ -1,14 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=19 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="Texture2D" uid="uid://cnkts6bw2dt57" path="res://Player/arrow.png" id="3_s5i6o"]
 [ext_resource type="Texture2D" uid="uid://l5313co6xudc" path="res://Collectables/Game_Jam_Sprites5.png" id="3_tfke5"]
+[ext_resource type="PackedScene" uid="uid://bajd6sv7rw7gj" path="res://Camera/Camera.tscn" id="3_sogib"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 [ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
 [ext_resource type="Script" path="res://Main/Messsager.gd" id="7_t55rb"]
 [ext_resource type="Script" path="res://Main/Eyes.gd" id="7_y47h2"]
+[ext_resource type="PackedScene" uid="uid://cu33ucdc0m26b" path="res://Terrain/Grass/Grass.tscn" id="9_fchas"]
+[ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="10_mfuor"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
@@ -45,6 +48,37 @@ script = ExtResource("1_pa3v3")
 [node name="TerrainManager" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_rlcv6")
 player = NodePath("../Player")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StickScore" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Messager" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = 508.0
+offset_right = 1056.0
+offset_bottom = 608.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("7_t55rb")
 
 [node name="NavigationLink3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_w78l0")
@@ -91,8 +125,12 @@ wait_time = 10.0
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
 
-[node name="Player" parent="." node_paths=PackedStringArray("messager") instance=ExtResource("2_ifrsp")]
-messager = NodePath("../Messager")
+[node name="CameraAnchor" parent="." instance=ExtResource("3_sogib")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("cameraAnchor", "messager") instance=ExtResource("2_ifrsp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.29371, 0, 0)
+cameraAnchor = NodePath("../CameraAnchor")
+messager = NodePath("../UI/Messager")
 
 [node name="Eyes" type="Node3D" parent="Player"]
 script = ExtResource("7_y47h2")
@@ -111,23 +149,216 @@ mesh = SubResource("PlaneMesh_5kvqm")
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
 
-[node name="Messager" type="Label" parent="."]
+[node name="MenuItems" type="Node3D" parent="."]
+
+[node name="Grass" parent="MenuItems" instance=ExtResource("9_fchas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23288, 0, -1.94577)
+
+[node name="Grass2" parent="MenuItems" instance=ExtResource("9_fchas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40401, -4.76837e-07, 3.53063)
+
+[node name="Grass3" parent="MenuItems" instance=ExtResource("9_fchas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11636, 0, 1.31298)
+
+[node name="Tree" parent="MenuItems" instance=ExtResource("10_mfuor")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3.75519, 0, 3.6897)
+
+[node name="Tree2" parent="MenuItems" instance=ExtResource("10_mfuor")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.4317, 0, 4.32278)
+
+[node name="Tree3" parent="MenuItems" instance=ExtResource("10_mfuor")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.07554, 0, -3.2458)
+
+[node name="Tree4" parent="MenuItems" instance=ExtResource("10_mfuor")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.07632, 0, -4.48113)
+
+[node name="MainMenu" type="Control" parent="MenuItems"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="MenuItems/MainMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -502.0
+offset_top = 27.0
+offset_right = 498.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 60
+text = "Hylophobia"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Start" type="Button" parent="MenuItems/MainMenu"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -500.0
-offset_top = -100.0
-offset_right = 500.0
+offset_left = -353.0
+offset_top = 516.0
+offset_right = -137.0
+offset_bottom = 585.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("6_wixdo")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
+text = "START"
+flat = true
+
+[node name="Credits" type="Button" parent="MenuItems/MainMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 516.0
+offset_right = 148.0
+offset_bottom = 585.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "CREDITS"
+flat = true
+
+[node name="Quit" type="Button" parent="MenuItems/MainMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 171.0
+offset_top = 516.0
+offset_right = 335.0
+offset_bottom = 585.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "QUIT"
+flat = true
+
+[node name="GameOver" type="Control" parent="MenuItems"]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Restart" type="Button" parent="MenuItems/GameOver"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -163.0
+offset_top = 518.0
+offset_right = 163.0
+offset_bottom = 587.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "TRY AGAIN"
+flat = true
+
+[node name="Title" type="Label" parent="MenuItems/GameOver"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -502.0
+offset_top = 27.0
+offset_right = 498.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 60
+text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-script = ExtResource("7_t55rb")
+
+[node name="Pause" type="Control" parent="MenuItems"]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="MenuItems/Pause"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -502.0
+offset_top = 27.0
+offset_right = 498.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 60
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Resume" type="Button" parent="MenuItems/Pause"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -163.0
+offset_top = 517.0
+offset_right = 163.0
+offset_bottom = 586.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "Resume"
+flat = true
 
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="MenuItems/MainMenu/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuItems/MainMenu/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MenuItems/MainMenu/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MenuItems/GameOver/Restart" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MenuItems/Pause/Resume" to="." method="_on_resume_pressed"]

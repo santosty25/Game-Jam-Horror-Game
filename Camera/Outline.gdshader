@@ -19,6 +19,7 @@ uniform vec3 center = vec3(0,0,-6);
 uniform float outline_thickness = 0.05;
 uniform bool enable_outline = true;
 uniform bool threat_near = false;
+uniform float rotation = 0;
 
 float hashOld12(vec2 p){
 	return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453 + (sin((TIME)) / noise_time_fac)) ;
@@ -62,7 +63,9 @@ void fragment(){
 	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	view.xyz /= view.w;
 
-	vec4 d = inverse(MODEL_MATRIX)*INV_VIEW_MATRIX*view;
+	vec3 d = (inverse(MODEL_MATRIX)*INV_VIEW_MATRIX*view).xyz;
+	mat3 rotMat = mat3(vec3(cos(rotation),0,sin(rotation)),vec3(0,1,0),vec3(-sin(rotation),0,cos(rotation)));
+	d = rotMat*(d.xyz-center)+center;
 
 	float linear_depth = max(abs(d.x-center.x),abs(d.z-center.z));
 	float depth_mask_inv;

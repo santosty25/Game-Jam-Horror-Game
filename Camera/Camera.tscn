@@ -1,0 +1,128 @@
+[gd_scene load_steps=12 format=3 uid="uid://bajd6sv7rw7gj"]
+
+[ext_resource type="Script" path="res://Camera/CameraAnchor.gd" id="1_ghybm"]
+[ext_resource type="Script" path="res://Player/ShaderEnabler.gd" id="1_qlkme"]
+[ext_resource type="Shader" path="res://Camera/Outline.gdshader" id="2_7dm3a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qu2q"]
+render_priority = 0
+shader = ExtResource("2_7dm3a")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = null
+shader_parameter/noise_color = null
+shader_parameter/fog_distance = 6.0
+shader_parameter/fog_fade_range = 0.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 4.0
+shader_parameter/enable_color_limitation = false
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = false
+shader_parameter/dither_strength = 1.5
+shader_parameter/center = Vector3(0, 0, -13.9)
+shader_parameter/outline_thickness = 0.1
+shader_parameter/enable_outline = true
+shader_parameter/threat_near = false
+shader_parameter/rotation = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_kd028"]
+material = SubResource("ShaderMaterial_3qu2q")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4ucc"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jeu4p"]
+material = SubResource("StandardMaterial3D_y4ucc")
+size = Vector2(12, 12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqrvx"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1ywhq"]
+material = SubResource("StandardMaterial3D_wqrvx")
+size = Vector2(12, 12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ad1v8"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j33kv"]
+material = SubResource("StandardMaterial3D_ad1v8")
+size = Vector2(0.1, 2)
+
+[node name="CameraAnchor" type="Node3D"]
+script = ExtResource("1_ghybm")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939692, 0.34202, 0, -0.34202, 0.939692, 0, 5, 14)
+script = ExtResource("1_qlkme")
+
+[node name="Shader" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.939692, -0.34202, 0, 0.34202, 0.939692, 0, -0.74661, -1.14347)
+visible = false
+mesh = SubResource("QuadMesh_kd028")
+
+[node name="Platform" type="Node3D" parent="."]
+
+[node name="Ground" type="MeshInstance3D" parent="Platform"]
+mesh = SubResource("PlaneMesh_jeu4p")
+skeleton = NodePath("../..")
+
+[node name="Bottom" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("PlaneMesh_1ywhq")
+skeleton = NodePath("../Ground")
+
+[node name="Bars_Front" type="Node3D" parent="Platform"]
+
+[node name="Bar2" type="MeshInstance3D" parent="Platform/Bars_Front"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bar1" type="MeshInstance3D" parent="Platform/Bars_Front"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bars_Left" type="Node3D" parent="Platform"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Bar2" type="MeshInstance3D" parent="Platform/Bars_Left"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bar1" type="MeshInstance3D" parent="Platform/Bars_Left"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bard_Right" type="Node3D" parent="Platform"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Bar2" type="MeshInstance3D" parent="Platform/Bard_Right"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bar1" type="MeshInstance3D" parent="Platform/Bard_Right"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bars_Back" type="Node3D" parent="Platform"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Bar2" type="MeshInstance3D" parent="Platform/Bars_Back"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")
+
+[node name="Bar1" type="MeshInstance3D" parent="Platform/Bars_Back"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -5.95, -1, 6)
+mesh = SubResource("PlaneMesh_j33kv")
+skeleton = NodePath("../../Bottom")

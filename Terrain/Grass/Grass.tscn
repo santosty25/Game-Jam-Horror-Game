@@ -6,6 +6,7 @@
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
+cull_mode = 2
 albedo_texture = ExtResource("1_dh4f8")
 emission = Color(1, 0, 0, 1)
 texture_filter = 2

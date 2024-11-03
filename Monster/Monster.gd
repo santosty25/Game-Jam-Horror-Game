@@ -27,6 +27,7 @@ var frameRate = 0.25
 var frames = [F1,F2,F3,F4]
 var frameCounter = 0
 var currentFrame = 0
+var paused = false
 
 signal requestRespawn 
 
@@ -35,25 +36,26 @@ func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
 
 func _physics_process(delta):
-	var dist2Player = global_transform.origin.distance_to(player.global_transform.origin)
-	
-	if dist2Player > despawnDistance:
-		emit_signal("requestRespawn")
-		print("Far Away")
-		queue_free()
-		return
-
-	if player:
-		if player.getInside():
-			runAway(delta)
-		else:
-			chasePlayer(delta)
+	if !paused:
+		var dist2Player = global_transform.origin.distance_to(player.global_transform.origin)
 		
-	frameCounter += delta
-	if frameCounter > frameRate:
-		frameCounter = 0
-		currentFrame = (currentFrame+1)%len(frames)
-		mesh.mesh.material.albedo_texture = frames[currentFrame]
+		if dist2Player > despawnDistance:
+			emit_signal("requestRespawn")
+			print("Far Away")
+			queue_free()
+			return
+
+		if player:
+			if player.getInside():
+				runAway(delta)
+			else:
+				chasePlayer(delta)
+			
+		frameCounter += delta
+		if frameCounter > frameRate:
+			frameCounter = 0
+			currentFrame = (currentFrame+1)%len(frames)
+			mesh.mesh.material.albedo_texture = frames[currentFrame]
 
 func chasePlayer(delta):
 	#faceDir.look_at(player.global_transform.origin, Vector3.UP)
