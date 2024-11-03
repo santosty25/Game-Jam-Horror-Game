@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=18 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="Texture2D" uid="uid://cnkts6bw2dt57" path="res://Player/arrow.png" id="3_s5i6o"]
+[ext_resource type="Texture2D" uid="uid://l5313co6xudc" path="res://Collectables/Game_Jam_Sprites5.png" id="3_tfke5"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 [ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
 [ext_resource type="Script" path="res://Main/Messsager.gd" id="7_t55rb"]
@@ -62,9 +63,19 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 
 [node name="UI" type="Node" parent="."]
 
+[node name="TextureRect" type="TextureRect" parent="UI"]
+offset_left = 1.0
+offset_top = -31.0
+offset_right = 68.0
+offset_bottom = 25.0
+texture = ExtResource("3_tfke5")
+
 [node name="StickScore" type="Label" parent="UI"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 66.0
+offset_top = 10.0
+offset_right = 106.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("6_wixdo")
 
 [node name="directionalArrow" type="Sprite2D" parent="UI"]
 position = Vector2(1082.49, 510.233)
