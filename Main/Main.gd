@@ -53,12 +53,6 @@ func _on_spawn_timer_timeout():
 
 func spawnMonster():
 	print("Spawning Monster")
-	spawnMonster()
-	
-	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
-	spawnTimer.wait_time = spawnInt
-
-func spawnMonster():
 	var monster = monsterScene.instantiate()
 	var dir = player.velocity.normalized()
 	if dir.length() == 0:
