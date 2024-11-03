@@ -35,6 +35,8 @@ var camp_fire = null
 var fadeOutTimer = 1
 var creditsTimer = 0
 var reset = false
+var monsterCount = 20
+var total = 2
 
 func _ready() -> void:
 	setMenu()
@@ -189,6 +191,8 @@ func _physics_process(delta: float) -> void:
 			monsterHinted = false
 			eyes.cover()
 		stickScore.text = "x " + str(player.stickCounter)
+	if player.getInside() == true:
+		total = 2
 
 func _on_monster_timer_timeout():
 	print("Monster Timer Ran Out")
@@ -204,7 +208,10 @@ func _on_monster_timer_timeout():
 	spawnMonster()
 
 func _on_spawn_timer_timeout():
-	spawnMonster()
+	total += 1
+	#print(total)
+	if total <= monsterCount:
+		spawnMonster()
 	spawnInt = max(spawnInt - intervalDecrement, minSpawnInt)
 	spawnTimer.wait_time = spawnInt
 
