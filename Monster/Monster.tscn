@@ -46,4 +46,3 @@ light_energy = 2.0
 omni_range = 10.0
 
 [connection signal="body_entered" from="AttackRegion" to="." method="_on_attack_region_body_entered"]
-[connection signal="body_exited" from="AttackRegion" to="." method="_on_attack_region_body_exited"]

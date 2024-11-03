@@ -17,7 +17,6 @@ const SPEED = 1.0
 
 var player
 var damageTimer = 0.0
-var isPlayerIn = false
 var flee = false
 
 var F1 = load("res://Monster/hand_1.png")
@@ -85,11 +84,5 @@ func check_direction(v):
 	
 func _on_attack_region_body_entered(body):
 	if body.is_in_group("Player"):
-		isPlayerIn = true
-		print("Player in range")
 		player.takeDamage(1)
-
-func _on_attack_region_body_exited(body):
-	if body.is_in_group("Player"):
-		isPlayerIn = false
-		print("Player out of range")
+		queue_free()
