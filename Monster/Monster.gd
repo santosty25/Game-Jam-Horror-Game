@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var navigation = $NavigationAgent3D
 @onready var faceDir = $FaceDirection
 @onready var mesh = $MeshInstance3D
+@onready var move = $Move
 
 const SPEED = 1.0
 
@@ -65,6 +66,8 @@ func chasePlayer(delta):
 	var velocity = (navigation.get_next_path_position() - transform.origin).normalized() * SPEED * delta
 	check_direction(velocity)
 	move_and_collide(velocity)
+	if move.playing == false:
+		move.play()
 
 func runAway(delta):
 	fleeTime -= delta

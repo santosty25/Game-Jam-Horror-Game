@@ -40,6 +40,7 @@ var currentFrame = 0
 @onready var collision = $"CollisionShape3D"
 @onready var walking = $Walking
 @onready var pickup = $Pickup
+@onready var damagePlayer = $Damage
 @export var cameraAnchor: CameraAnchor
 @onready  var camera = cameraAnchor.getCamera()
 @onready var shader = cameraAnchor.getShader()
@@ -173,6 +174,7 @@ func getFull():
 
 func takeDamage(damage):
 	health -= damage
+	damagePlayer.play()
 	health = min(max(0, health),maxHealth)  # Prevent health from going below 0
 	print("Player took damage. Health is now:", health)
 	emit_signal("health_changed", health)  # Emit signal when health changes

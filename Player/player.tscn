@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://8dqet3mcvwte"]
+[gd_scene load_steps=12 format=3 uid="uid://8dqet3mcvwte"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_t3kix"]
-[ext_resource type="AudioStream" uid="uid://cdkkngsxmo8cc" path="res://Main/Walking.mp3" id="5_d6s78"]
-[ext_resource type="AudioStream" uid="uid://cafbke5tov4gc" path="res://Main/Pickup.mp3" id="6_vxe5r"]
 [ext_resource type="Texture2D" uid="uid://ygu5fo560vny" path="res://Player/Player_1.png" id="2_6xtek"]
 [ext_resource type="Texture2D" uid="uid://c3gd4revvjerj" path="res://Player/Bone.png" id="3_ik4py"]
+[ext_resource type="AudioStream" uid="uid://cdkkngsxmo8cc" path="res://Main/Walking.mp3" id="5_d6s78"]
 [ext_resource type="Script" path="res://Player/hearts_container.gd" id="5_n1y5c"]
+[ext_resource type="AudioStream" uid="uid://cafbke5tov4gc" path="res://Main/Pickup.mp3" id="6_vxe5r"]
+[ext_resource type="AudioStream" uid="uid://blc7tjdxvuoks" path="res://Main/Damage.mp3" id="7_rc30u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]
 transparency = 2
@@ -72,6 +73,10 @@ volume_db = 80.0
 [node name="Pickup" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_vxe5r")
 volume_db = 1.0
+
+[node name="Damage" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_rc30u")
+volume_db = 5.0
 
 [connection signal="area_entered" from="Interaction" to="." method="_on_interaction_area_entered"]
 [connection signal="area_exited" from="Interaction" to="." method="_on_interaction_area_exited"]
