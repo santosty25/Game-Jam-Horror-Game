@@ -129,6 +129,7 @@ func smoothPercentage(p):
 	return -0.5*cos(PI*p)+0.5
 
 func _physics_process(delta: float) -> void:
+	print(monsterTimer.time_left)
 	if !reset:
 		if fadeOutTimer > 0:
 			fadeOutTimer -= delta*0.5
@@ -184,6 +185,7 @@ func _physics_process(delta: float) -> void:
 				messager.delMessage()
 		else:
 			spawnTimer.stop()
+			monsterTimer.stop()
 			isRunning = false
 			isRunningSpawn = false
 			monsterHinted = false
@@ -198,7 +200,7 @@ func _on_monster_timer_timeout():
 			monsterTimeAudio.play()
 	spawnTimer.start()
 	isRunningSpawn = true 
-	player.makeOutlineRed()
+	player.startChase()
 	eyes.uncover()
 	spawnMonster()
 	spawnMonster()

@@ -28,6 +28,7 @@ var isready = false
 var camPosStart = Vector3.ZERO
 var dead = false
 var deathFrameRate = 0.35
+var chase = AudioEffectSpectrumAnalyzerInstance
 
 var stix = load("res://Collectables/Stick.tscn")
 var stickHint = "Press (E) to pick up STICK"
@@ -41,9 +42,9 @@ var currentFrame = 0
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
-@onready var walking = $Walking
-@onready var pickup = $Pickup
-@onready var damagePlayer = $Damage
+@onready var walking = $SFX/Walking
+@onready var pickup = $SFX/Pickup
+@onready var damagePlayer = $SFX/Damage
 @export var cameraAnchor: CameraAnchor
 @onready  var camera = cameraAnchor.getCamera()
 @onready var shader = cameraAnchor.getShader()
@@ -51,23 +52,30 @@ var currentFrame = 0
 @onready var interaction = $Interaction
 @onready var heartsContainer = $heartsContainer
 @export var messager: Messager
-@onready var restingAudio = $restingAudio
-@onready var exploringAudio = $exploringAudio
+@onready var restingAudio = $"Background Music/restingAudio"
+@onready var exploringAudio = $"Background Music/exploringAudio"
+@onready var chaseAudio = $"Background Music/chaseAudio"
 
 
 func _ready() -> void:
 	setMenu()
-	restingAudio.playing = true
+	restingAudio.play()
+	exploringAudio.play()
+	chaseAudio.play()
 
 func setMenu():
-	restingAudio.playing = true
+	setAudio(0)
 	menu = true
 	heartsContainer.visible = false
 
 func setGameplay():
 	menu = false
 	if inside:
-		restingAudio.playing = true
+		setAudio(0)
+	elif chase:
+		setAudio(2)
+	else:
+		setAudio(1)
 	camera.position.y = gameplayConfigVals[0]
 	camera.position.z = gameplayConfigVals[1]
 	shader.set("shader_parameter/center",Vector3(0,0,gameplayConfigVals[2]))
@@ -86,6 +94,7 @@ func animateMenuTransition(toMenu=false):
 	if transitionToMenu:
 		isready = false
 		menu = true
+		setAudio(0)
 	
 func move(start, end, percent):
 	var p = -0.5*cos(PI*percent)+0.5
@@ -101,6 +110,7 @@ func _physics_process(delta: float) -> void:
 			currentFrame = (currentFrame+1)
 			mesh.mesh.material.albedo_texture = deathFrames[currentFrame]
 	if menu:
+		setAudio(0)
 		if !dead:
 			mesh.mesh.material.albedo_texture = idle
 		if !transitionToGameplay && !transitionToMenu:
@@ -207,6 +217,11 @@ func heal(amount):
 	
 func setInside(val):
 	makeOutlineWhite()
+	chase = false
+	if val:
+		setAudio(0)
+	else:
+		setAudio(1)
 	inside = val
 	
 func getInside():
@@ -235,3 +250,23 @@ func animate_death():
 	frameCounter = 0
 	currentFrame = 0
 	dead = true
+
+func setAudio(track):
+	if track == 0:
+		restingAudio.stream_paused = false
+		exploringAudio.stream_paused = true
+		chaseAudio.stream_paused = true
+	if track == 1:
+		restingAudio.stream_paused = true
+		exploringAudio.stream_paused = false
+		chaseAudio.stream_paused = true
+	if track == 2:
+		restingAudio.stream_paused = true
+		exploringAudio.stream_paused = true
+		chaseAudio.stream_paused = false
+
+func startChase():
+	makeOutlineRed()
+	chaseAudio.play()
+	chase = true
+	setAudio(2)

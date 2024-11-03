@@ -60,8 +60,6 @@ func _on_body_entered(body: Node3D) -> void:
 		if body.is_in_group("Player"):
 			#print("Player entered the campfire area")
 			player.setInside(true)
-			player.exploringAudio.playing = false
-			player.restingAudio.playing = true
 	else:
 		if body.is_in_group("Player"):
 			#print("Player entered the campfire area")
@@ -71,8 +69,6 @@ func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		#print("Player left the campfire area")
 		player.setInside(false)
-		player.restingAudio.playing = false
-		player.exploringAudio.playing = true
 		
 # Function to add time to the timer
 # Function to add time to the timer

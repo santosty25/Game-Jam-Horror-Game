@@ -72,11 +72,13 @@ offset_bottom = 40.0
 
 [node name="StickScore" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 73.0
-offset_top = 9.0
-offset_right = 136.0
-offset_bottom = 44.0
+offset_left = 93.0
+offset_top = 14.0
+offset_right = 156.0
+offset_bottom = 49.0
 theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 25
+text = "x0"
 
 [node name="Messager" type="Label" parent="UI"]
 layout_mode = 1
@@ -101,9 +103,9 @@ script = ExtResource("7_t55rb")
 [node name="TextureRect" type="TextureRect" parent="UI"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = -31.0
-offset_right = 72.0
-offset_bottom = 25.0
+offset_top = -42.0
+offset_right = 98.0
+offset_bottom = 35.0
 texture = ExtResource("3_tfke5")
 
 [node name="directionalArrow" type="Sprite2D" parent="UI"]
@@ -132,6 +134,7 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
+wait_time = 30.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
