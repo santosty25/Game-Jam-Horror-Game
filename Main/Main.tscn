@@ -75,7 +75,7 @@ offset = Vector2(1016.95, 18.3674)
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 10.0
+wait_time = 60.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
