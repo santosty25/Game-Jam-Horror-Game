@@ -1,5 +1,7 @@
 extends Area3D
 
+@export var messager: Messager
+
 signal timer_expired  # Signal to notify when timer ends
 
 var healing_rate = 1.0  
@@ -16,13 +18,14 @@ var paused = true
 var varyRadius = 0.1
 var varyTimer = 0
 var varyTimerMax = 2
-
-@onready var addStick = $"../AddStick"
+var campFireHint = "Press (E) to put a STICK into the fire"
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
 	player = get_tree().get_root().get_node("Main/Player")
 	monster = get_tree().get_root().get_node("Main/Monster")
+	messager = get_tree().get_root().get_node("Main/UI/Messager")
+	
 	safe_timer = $Timer
 	light_radius = $"../lightRadius"
 		
@@ -37,13 +40,20 @@ func _on_interact_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		#print("Player exited interact area")
 		player_in_interact_area = false
-	
+		if messager:
+			messager.delMessage()
+
 # Detect when the player enters the interaction area
 func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):  # Assumes player is part of a "Player" group
 		#print("Player entered interact area")
 		player_in_interact_area = true
-		
+		if player.stickCounter > 0:
+			if messager:
+				messager.setMessage(campFireHint)
+			else:
+				print("NIL value")
+
 func _on_body_entered(body: Node3D) -> void:
 	if safe_timer.time_left > 1:
 		if body.is_in_group("Player"):
@@ -105,15 +115,13 @@ func _process(delta):
 		
 		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
 			add_stick()
-			if addStick.playing == false:
-				addStick.play()
 			
 		# Apply healing over time if the player is inside the radius
-		#var ins = player.getInside()
-		#if ins and player and is_instance_valid(player):
-		#	if player.health <= 3:
-		#		player.heal(healing_rate * delta)
-		#		#print("Player healed by", healing_rate * delta)
-		#		print("Players health is now", player.health)
+		var ins = player.getInside()
+		if ins and player and is_instance_valid(player):
+			if player.health <= 3:
+				player.health += healing_rate * delta
+				#print("Player healed by", healing_rate * delta)
+				print("Players health is now", player.health)
 			#else:
 				#print("Player already at max health")

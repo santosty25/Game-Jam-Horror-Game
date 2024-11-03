@@ -8,7 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://cafbke5tov4gc" path="res://Main/Pickup.mp3" id="6_vxe5r"]
 [ext_resource type="AudioStream" uid="uid://blc7tjdxvuoks" path="res://Main/Damage.mp3" id="7_rc30u"]
 
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysx6n"]
 transparency = 2
 alpha_scissor_threshold = 0.5
