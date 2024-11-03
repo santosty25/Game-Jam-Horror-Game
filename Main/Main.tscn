@@ -118,7 +118,7 @@ shape = SubResource("WorldBoundaryShape3D_bk240")
 [node name="Timers" type="Node" parent="."]
 
 [node name="MonsterTimer" type="Timer" parent="Timers"]
-wait_time = 10.0
+wait_time = 60.0
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
@@ -382,6 +382,7 @@ offset_bottom = 664.0
 color = Color(0, 0, 0, 1)
 
 [node name="Credits" type="Control" parent="MenuItems"]
+visible = false
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5

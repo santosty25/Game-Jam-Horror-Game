@@ -17,7 +17,7 @@ var respondLoc = []
 var full = false
 var menu = false
 # camera position y, camera position z, shader center z, camera rotation x
-var gameplayConfigVals = [6, 10, -9.8, -35]
+var gameplayConfigVals = [6, 10, -9.9, -35]
 var menuConfigVals = [4, 14, -13.9, -20]
 var transitionToGameplay = false
 var transitionToMenu = false
