@@ -26,7 +26,8 @@ var monsters = []
 @onready var credits := $MenuItems/Credits
 @onready var monsterTimeAudio = $MonsterTimesUp
 
-var monsterHint = "It is pitch black. You are likely to be eaten by a grue."
+var monsterHint = "It is pitch black. You are likely to be eaten by a grue"
+var startGameMessage = "This fire will die soon, you should go find some fuel"
 var monsterHinted = false
 var spawnInt = 10.0 # timer for monsters to spawn
 var minSpawnInt = 2.0 # fastest time monsters will start spawning
@@ -37,6 +38,7 @@ var creditsTimer = 0
 var reset = false
 var monsterCount = 20
 var total = 2
+var startHintTimer = 8
 
 func _ready() -> void:
 	setMenu()
@@ -91,6 +93,7 @@ func startGame():
 	monsterTimer.paused = false
 	spawnTimer.paused = false
 	pauseMonsters(false)
+	messager.setMessage(startGameMessage)
 	
 func hideUI():
 	mainUI.visible = false
@@ -163,6 +166,10 @@ func _physics_process(delta: float) -> void:
 			inGame = true
 			menu = false
 	elif !menu:
+		if startHintTimer > 0:
+			startHintTimer -= delta
+		elif messager.message == startGameMessage:
+			messager.delMessage()
 		if player:
 			#find the safe area
 			camp_fire = get_node("CampFire")

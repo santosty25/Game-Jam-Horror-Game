@@ -8,6 +8,7 @@ var terrain_items = []
 var COUNT = 1000 # how many to gen
 var DISTANCE = 100 # radius from center
 var SAFE_DIST = 10 # dont generate in this radius
+var STICK_MIN_RAD = 20
 
 #@onready var player = get_node("Player")
 @export var player: Player
@@ -47,25 +48,18 @@ func generate() -> void:
 		#add_child(node)
 
 func generateStick(num: int):
-	for i in range(num):
-		for j in range(num):
+	for i in range(-num,num+1):
+		for j in range(-num,num+1):
 			var node: Node3D
 		
 			node = stick.instantiate()
 			node.set_player(player)
 			node.position.x = i * 20
 			node.position.z = j * 20
-			add_child(node)
-			
-	for i in range(num):
-		for j in range(num):
-			var node: Node3D
-		
-			node = stick.instantiate()
-			node.set_player(player)
-			node.position.x = i * -20
-			node.position.z = j * -20
-			add_child(node)
+			var offset = Vector3(randf(),0,randf()).normalized()*randf()*20
+			node.position += offset
+			if node.position.length() >= STICK_MIN_RAD:
+				add_child(node)
 
 func regenStick(pos: Array):
 	var node: Node3D

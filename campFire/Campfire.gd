@@ -1,4 +1,5 @@
 extends Node3D
+class_name Campfire
 
 @onready var sprite = $Sprite
 @onready var safe_area = $safeArea  

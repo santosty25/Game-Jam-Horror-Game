@@ -29,6 +29,7 @@ material = SubResource("StandardMaterial3D_ysx6n")
 radius = 1.02085
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_t3kix")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -54,7 +55,7 @@ grow_horizontal = 0
 size_flags_horizontal = 4
 script = ExtResource("5_n1y5c")
 
-[node name="heart1" type="TextureRect" parent="heartsContainer"]
+[node name="heart3" type="TextureRect" parent="heartsContainer"]
 layout_mode = 2
 texture = ExtResource("6_a2k03")
 expand_mode = 2
@@ -64,7 +65,7 @@ layout_mode = 2
 texture = ExtResource("6_a2k03")
 expand_mode = 2
 
-[node name="heart3" type="TextureRect" parent="heartsContainer"]
+[node name="heart1" type="TextureRect" parent="heartsContainer"]
 layout_mode = 2
 texture = ExtResource("6_a2k03")
 expand_mode = 2

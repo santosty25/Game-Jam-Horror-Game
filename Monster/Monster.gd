@@ -6,7 +6,7 @@ extends CharacterBody3D
 @onready var mesh = $MeshInstance3D
 @onready var move = $Move
 
-const SPEED = 2.0
+const SPEED = 4.0
 
 @export var fleeDistance = 10.0
 @export var fleeTime = 5.0

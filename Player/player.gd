@@ -9,7 +9,7 @@ const TRANSTIME = 1
 signal health_changed(new_health)  # Signal for health changes
 
 var stickInRange = false
-var inside = false
+var inside = true
 var health = 3
 var maxHealth = 3
 var stickCounter = 0
@@ -40,6 +40,9 @@ var frameRate = 0.25
 var frameCounter = 0
 var currentFrame = 0
 
+var camFollowForce = 5
+var maxCamDist = 5
+
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
 @onready var walking = $SFX/Walking
@@ -52,6 +55,7 @@ var currentFrame = 0
 @onready var interaction = $Interaction
 @onready var heartsContainer = $heartsContainer
 @export var messager: Messager
+@export var campfire: Campfire
 @onready var restingAudio = $"Background Music/restingAudio"
 @onready var exploringAudio = $"Background Music/exploringAudio"
 @onready var chaseAudio = $"Background Music/chaseAudio"
@@ -120,6 +124,9 @@ func _physics_process(delta: float) -> void:
 			ttime += delta
 			var p = ttime/TRANSTIME
 			if transitionToGameplay:
+				var camTarget = position
+				if inside:
+					camTarget = campfire.position
 				cameraAnchor.rotation.y = move(camRotStart,0,p)
 				camera.position.y = move(menuConfigVals[0],gameplayConfigVals[0],p)
 				camera.position.z = move(menuConfigVals[1],gameplayConfigVals[1],p)
@@ -127,12 +134,15 @@ func _physics_process(delta: float) -> void:
 				camera.rotation_degrees.x = move(menuConfigVals[3],gameplayConfigVals[3],p)
 				shaderObj.rotation_degrees.x = -move(menuConfigVals[3],gameplayConfigVals[3],p)
 				shader.set("shader_parameter/rotation",-cameraAnchor.rotation.y)
-				cameraAnchor.position = move(camPosStart,position,p)
+				cameraAnchor.position = move(camPosStart,camTarget,p)
 				if p >= 1:
 					transitionToGameplay = false
 					isready = true
 					setGameplay()
 			elif transitionToMenu:
+				var camTarget = position
+				if inside:
+					camTarget = campfire.position
 				cameraAnchor.rotation.y = move(camRotStart,0,p)
 				camera.position.y = move(gameplayConfigVals[0],menuConfigVals[0],p)
 				camera.position.z = move(gameplayConfigVals[1],menuConfigVals[1],p)
@@ -140,12 +150,21 @@ func _physics_process(delta: float) -> void:
 				camera.rotation_degrees.x = move(gameplayConfigVals[3],menuConfigVals[3],p)
 				shaderObj.rotation_degrees.x = -move(gameplayConfigVals[3],menuConfigVals[3],p)
 				shader.set("shader_parameter/rotation",-cameraAnchor.rotation.y)
-				cameraAnchor.position = move(camPosStart,position,p)
+				cameraAnchor.position = move(camPosStart,camTarget,p)
 				if p >= 1:
 					transitionToMenu = false
 					setMenu()
 	elif !dead:
-		cameraAnchor.position = position
+		var camPos = cameraAnchor.position
+		var camTarget = position
+		var limit = maxCamDist
+		if inside:
+			camTarget = campfire.position
+			limit = 100
+		camPos = camPos.move_toward(camTarget,(camTarget-camPos).length()*camFollowForce*delta)
+		if (camPos-camTarget).length() > limit:
+			camPos = camTarget+(camPos-camTarget).normalized()*limit
+		cameraAnchor.position = camPos
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
 				stix.pickup()
