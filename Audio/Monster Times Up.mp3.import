@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bp2us5veftt5i"
+path="res://.godot/imported/Monster Times Up.mp3-c6ac4df7858629f040bfbb46c000473f.mp3str"
+
+[deps]
+
+source_file="res://Audio/Monster Times Up.mp3"
+dest_files=["res://.godot/imported/Monster Times Up.mp3-c6ac4df7858629f040bfbb46c000473f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

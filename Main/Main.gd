@@ -193,6 +193,7 @@ func _physics_process(delta: float) -> void:
 func _on_monster_timer_timeout():
 	print("Monster Timer Ran Out")
 	monsterTimer.stop()
+	monsterTimeAudio.play()
 	if monsterTimeAudio.playing == false:
 			monsterTimeAudio.play()
 	spawnTimer.start()

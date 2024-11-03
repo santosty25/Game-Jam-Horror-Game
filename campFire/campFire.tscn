@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://campFire/safeArea.gd" id="1_2n34e"]
 [ext_resource type="Script" path="res://campFire/Campfire.gd" id="1_eewxj"]
 [ext_resource type="Texture2D" uid="uid://ccr7c7xy0k2id" path="res://campFire/Fire_1.png" id="2_tsgda"]
-[ext_resource type="AudioStream" uid="uid://ddl6esgxnckg0" path="res://Main/Lighting Campfire.mp3" id="4_5uvwk"]
+[ext_resource type="AudioStream" uid="uid://ddl6esgxnckg0" path="res://Audio/Lighting Campfire.mp3" id="4_5uvwk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pm533"]
 
