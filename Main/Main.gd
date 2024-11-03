@@ -6,6 +6,7 @@ var isRunningSpawn = false # check if spawn timer is running
 var menuTransition = false
 var menu = true
 var inGame = false
+var creditsShown = false
 var monsters = []
 
 @onready var monsterTimer = $Timers/MonsterTimer
@@ -22,6 +23,7 @@ var monsters = []
 @onready var pauseUI = $MenuItems/Pause
 @onready var endUI = $MenuItems/GameOver
 @onready var fadeOut = $MenuItems/ColorRect
+@onready var credits := $MenuItems/Credits
 
 var monsterHint = "It is pitch black. You are likely to be eaten by a grue."
 var monsterHinted = false
@@ -30,6 +32,7 @@ var minSpawnInt = 2.0 # fastest time monsters will start spawning
 var intervalDecrement = 1.0 # value for slowly decreasing spawn timer
 var camp_fire = null
 var fadeOutTimer = 1
+var creditsTimer = 0
 var reset = false
 
 func _ready() -> void:
@@ -102,7 +105,7 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_credits_pressed() -> void:
-	pass 
+	creditsShown = true 
 	
 func _on_resume_pressed() -> void:
 	hideUI()
@@ -137,6 +140,17 @@ func _physics_process(delta: float) -> void:
 			fadeOut.color = Color(0,0,0,smoothPercentage(fadeOutTimer))
 		elif fadeOut.visible:
 			get_tree().reload_current_scene()
+	if creditsShown:
+		credits.visible = true
+		if creditsTimer < 1:
+			creditsTimer += delta*0.5
+			credits.modulate = Color(1,1,1,smoothPercentage(creditsTimer))
+	else:
+		if creditsTimer > 0:
+			creditsTimer -= delta*0.5
+			credits.modulate = Color(1,1,1,smoothPercentage(creditsTimer))
+		else:
+			credits.visible = false
 	if menuTransition:
 		if player.isready:
 			startGame()
@@ -220,3 +234,7 @@ func _on_player_health_changed(new_health: Variant) -> void:
 		setEndMenu()
 		menu = true
 		player.animateMenuTransition(true)
+		
+
+func _on_credits_back_pressed() -> void:
+	creditsShown = false

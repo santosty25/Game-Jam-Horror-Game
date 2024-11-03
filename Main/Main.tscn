@@ -381,6 +381,137 @@ offset_right = 1165.0
 offset_bottom = 664.0
 color = Color(0, 0, 0, 1)
 
+[node name="Credits" type="Control" parent="MenuItems"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -587.5
+offset_top = -9.0
+offset_right = 587.5
+offset_bottom = 665.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title2" type="Label" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 18.0
+offset_right = 500.0
+offset_bottom = 103.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 60
+text = "CREDITS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Title" type="Label" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -499.0
+offset_top = 198.0
+offset_right = 501.0
+offset_bottom = 367.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "Kawika Suzuki
+Marshall Zhang
+Tyler Santos
+Xavier Santiago
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -163.0
+offset_top = 518.0
+offset_right = 163.0
+offset_bottom = 587.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "Back"
+flat = true
+
+[node name="Title3" type="Label" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 114.0
+offset_right = 500.0
+offset_bottom = 199.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 50
+text = "Developers:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Title4" type="Label" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 467.0
+offset_right = 500.0
+offset_bottom = 544.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 40
+text = "Beau Jorgenson"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Title5" type="Label" parent="MenuItems/Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 401.0
+offset_right = 500.0
+offset_bottom = 486.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 50
+text = "Music By:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]
@@ -390,3 +521,4 @@ color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="MenuItems/GameOver/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MenuItems/Pause/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MenuItems/Pause/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MenuItems/Credits/Back" to="." method="_on_credits_back_pressed"]
