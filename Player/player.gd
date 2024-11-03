@@ -30,8 +30,8 @@ var camPosStart = Vector3.ZERO
 var stix = load("res://Collectables/Stick.tscn")
 var stickHint = "Press (E) to pick up STICK"
 
-var frames = [load("res://Player/Player_1.png"),load("res://Player/Player_2.png"),load("res://Player/Player_3.png")]
-var idle = frames[1]
+var frames = [load("res://Player/Walk_1.png"),load("res://Player/Walk_2.png"),load("res://Player/Walk_3.png"),load("res://Player/Walk_4.png")]
+var idle = load("res://Player/Idle.png")
 var frameRate = 0.25
 var frameCounter = 0
 var currentFrame = 0
