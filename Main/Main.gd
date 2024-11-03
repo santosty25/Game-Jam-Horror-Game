@@ -25,6 +25,7 @@ var monsters = []
 @onready var fadeOut = $MenuItems/ColorRect
 @onready var credits := $MenuItems/Credits
 @onready var monsterTimeAudio = $MonsterTimesUp
+@onready var endScore = $MenuItems/GameOver/scoreTimer
 
 var monsterHint = "It is pitch black. You are likely to be eaten by a grue"
 var startGameMessage = "This fire will die soon, you should go find some fuel"
@@ -82,6 +83,7 @@ func setEndMenu():
 	endUI.visible = true
 	mainUI.visible = false
 	pauseUI.visible = false
+	endScore.text = "Time Survived: %.0f" % (player.scoreTimer*0.9)
 	
 func startGame():
 	if !inGame:

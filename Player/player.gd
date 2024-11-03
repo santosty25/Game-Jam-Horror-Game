@@ -216,8 +216,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func update_timer_display() -> void:
-	timerLabel.text = "Time Survived: %.2f" % scoreTimer  # Update the label text
-	print("inside")
+	timerLabel.text = "Time Survived: %.0f" % (scoreTimer*0.9)  # Update the label text
+	#print("inside")
 	
 func getRespondLoc():
 	return respondLoc
