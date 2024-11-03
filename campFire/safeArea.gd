@@ -7,13 +7,18 @@ var player = null
 var monster = null
 var safe_timer = null
 var player_in_interact_area = false  
-var max_time = 10.0
+var max_time = 120.0
+var light_radius = null
+var radius_decrease_interval = 1.0  # Time interval for radius decrease in seconds
+var time_since_last_decrease = 0.0   # Time tracker
+var radEverySecond = 2.5/max_time
 
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
 	player = get_tree().get_root().get_node("Main/Player")
 	monster = get_tree().get_root().get_node("Main/Monster")
 	safe_timer = $Timer
+	light_radius = $"../lightRadius"
 		
 	if player == null:
 		print("Player node not found. Check the node path.")
@@ -49,21 +54,31 @@ func _on_body_exited(body: Node3D) -> void:
 		player.setInside(false)
 		
 # Function to add time to the timer
+# Function to add time to the timer
 func add_stick():
 	# Increase timer but cap at max_time
+	var timeAdded = 20
 	if safe_timer.time_left < max_time:
-		var difference = min(max_time, safe_timer.time_left + 20)
+		var difference = min(max_time, safe_timer.time_left + timeAdded)
 		safe_timer.wait_time = difference
 		safe_timer.start()  # Restart timer to apply updated wait time
-		#print("Stick added to the fire! Timer extended to: ", safe_timer.wait_time, "seconds")
+		# Increase the light radius
+		var increaseAmount = timeAdded * radEverySecond  # Calculate the increase
+		var currentLightRadius = light_radius.mesh.top_radius
+		light_radius.mesh.set_top_radius(currentLightRadius + increaseAmount)
+		light_radius.mesh.set_bottom_radius(currentLightRadius + increaseAmount)
 		player.stickCounter -= 1
 		
 func _process(delta):
 	# Countdown logic
 	if safe_timer.time_left > 1:
-		#print("Time left in safe area:", int(safe_timer.time_left), "seconds")
-		#print(player.stickCounter)
-		pass
+		time_since_last_decrease += delta
+		if time_since_last_decrease >= radius_decrease_interval:
+			time_since_last_decrease = 0.0
+			#decrease the light radius
+			var currentLightRadius = light_radius.mesh.top_radius
+			light_radius.mesh.set_top_radius(currentLightRadius - radEverySecond)
+			light_radius.mesh.set_bottom_radius(currentLightRadius - radEverySecond)
 	else:
 		#print("Expired")
 		safe_timer.stop()
