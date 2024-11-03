@@ -17,6 +17,8 @@ var varyRadius = 0.1
 var varyTimer = 0
 var varyTimerMax = 2
 
+@onready var addStick = $"../AddStick"
+
 func _ready():
 	# Assuming "Player" is the player's node name in the main scene
 	player = get_tree().get_root().get_node("Main/Player")
@@ -103,6 +105,8 @@ func _process(delta):
 		
 		if player_in_interact_area and Input.is_action_just_pressed("Interact") and player.stickCounter > 0:  # "interact" should be mapped to "E" in Input Map
 			add_stick()
+			if addStick.playing == false:
+				addStick.play()
 			
 		# Apply healing over time if the player is inside the radius
 		#var ins = player.getInside()

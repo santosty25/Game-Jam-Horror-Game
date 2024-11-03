@@ -38,6 +38,8 @@ var currentFrame = 0
 
 @onready var mesh = $"MeshInstance3D"
 @onready var collision = $"CollisionShape3D"
+@onready var walking = $Walking
+@onready var pickup = $Pickup
 @export var cameraAnchor: CameraAnchor
 @onready  var camera = cameraAnchor.getCamera()
 @onready var shader = cameraAnchor.getShader()
@@ -45,6 +47,7 @@ var currentFrame = 0
 @onready var interaction = $Interaction
 @onready var heartsContainer = $heartsContainer
 @export var messager: Messager
+
 
 func _ready() -> void:
 	setMenu()
@@ -118,6 +121,7 @@ func _physics_process(delta: float) -> void:
 		if stickInRange && Input.is_action_just_pressed("Interact"):
 				stickCounter = stickCounter + 1
 				stix.pickup()
+				pickup.play()
 				stickLocation.append(stix.getPosition())
 				print(stickLocation.size())
 				print(stickLocation)
@@ -136,9 +140,13 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("Left", "Right", "Up", "Down")
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
+			if walking.playing == false:
+				walking.play()
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 		else:
+			if walking.playing == true:
+				walking.stop()
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 			
