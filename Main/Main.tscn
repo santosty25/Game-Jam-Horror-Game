@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=16 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
-[ext_resource type="PackedScene" uid="uid://6axjr6y6a05l" path="res://Monster/Monster.tscn" id="3_pixrt"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
+[ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
+[ext_resource type="Script" path="res://Main/Messsager.gd" id="7_t55rb"]
+[ext_resource type="Script" path="res://Main/Eyes.gd" id="7_y47h2"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
@@ -19,6 +21,21 @@ material = SubResource("StandardMaterial3D_7x1qu")
 size = Vector2(1000, 1000)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_bk240"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kxpv"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_485wi"]
+material = SubResource("StandardMaterial3D_8kxpv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8qr7"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5kvqm"]
+material = SubResource("StandardMaterial3D_h8qr7")
+size = Vector2(5, 2)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_pa3v3")
@@ -56,12 +73,43 @@ wait_time = 60.0
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 wait_time = 10.0
 
-[node name="Monster" parent="." instance=ExtResource("3_pixrt")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7.233, 1.5, 0)
+[node name="Player" parent="." node_paths=PackedStringArray("messager") instance=ExtResource("2_ifrsp")]
+messager = NodePath("../Messager")
 
-[node name="Player" parent="." instance=ExtResource("2_ifrsp")]
+[node name="Eyes" type="Node3D" parent="Player"]
+script = ExtResource("7_y47h2")
+
+[node name="Left" type="MeshInstance3D" parent="Player/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64669, 5.46007, -3.97699)
+mesh = SubResource("SphereMesh_485wi")
+
+[node name="Right" type="MeshInstance3D" parent="Player/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.647, 5.46, -3.977)
+mesh = SubResource("SphereMesh_485wi")
+
+[node name="Cover" type="MeshInstance3D" parent="Player/Eyes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.62929, -3.4332)
+mesh = SubResource("PlaneMesh_5kvqm")
 
 [node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
+
+[node name="Messager" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -100.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_wixdo")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("7_t55rb")
 
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

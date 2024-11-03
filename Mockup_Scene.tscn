@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="3_47kue"]
 [ext_resource type="PackedScene" uid="uid://cu33ucdc0m26b" path="res://Terrain/Grass/Grass.tscn" id="4_u8tis"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kxpv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8rxy"]
 shading_mode = 0
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_iiwir"]
-material = SubResource("StandardMaterial3D_8kxpv")
+material = SubResource("StandardMaterial3D_w8rxy")
 
 [node name="ExampleScene" type="Node3D"]
 

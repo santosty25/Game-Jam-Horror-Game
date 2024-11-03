@@ -7,9 +7,8 @@
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
+shading_mode = 0
 albedo_texture = ExtResource("2_3xy2y")
-backlight_enabled = true
-backlight = Color(1, 1, 1, 1)
 texture_filter = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_joi50"]
