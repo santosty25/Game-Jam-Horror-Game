@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
 [ext_resource type="PackedScene" uid="uid://8dqet3mcvwte" path="res://Player/player.tscn" id="2_ifrsp"]
 [ext_resource type="Texture2D" uid="uid://cnkts6bw2dt57" path="res://Player/arrow.png" id="3_s5i6o"]
-[ext_resource type="PackedScene" path="res://Camera/Camera.tscn" id="3_sogib"]
+[ext_resource type="PackedScene" uid="uid://bajd6sv7rw7gj" path="res://Camera/Camera.tscn" id="3_sogib"]
 [ext_resource type="Texture2D" uid="uid://l5313co6xudc" path="res://Collectables/Game_Jam_Sprites5.png" id="3_tfke5"]
 [ext_resource type="PackedScene" uid="uid://b4623nqe2wuht" path="res://campFire/campFire.tscn" id="4_3oigl"]
 [ext_resource type="FontFile" uid="uid://daruc33uvjwj7" path="res://UI/Fonts/BmCubeA8-n7O.ttf" id="6_wixdo"]
