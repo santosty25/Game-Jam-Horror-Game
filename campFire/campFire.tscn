@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4623nqe2wuht"]
+[gd_scene load_steps=11 format=3 uid="uid://b4623nqe2wuht"]
 
 [ext_resource type="Script" path="res://campFire/safeArea.gd" id="1_2n34e"]
 [ext_resource type="Script" path="res://campFire/Campfire.gd" id="1_eewxj"]
 [ext_resource type="Texture2D" uid="uid://ccr7c7xy0k2id" path="res://campFire/Fire_1.png" id="2_tsgda"]
+[ext_resource type="AudioStream" uid="uid://ddl6esgxnckg0" path="res://Main/Lighting Campfire.mp3" id="4_5uvwk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pm533"]
 
@@ -59,6 +60,9 @@ shape = SubResource("SphereShape3D_0o7wn")
 
 [node name="lightRadius" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_2w4jb")
+
+[node name="AddStick" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_5uvwk")
 
 [connection signal="body_entered" from="safeArea" to="safeArea" method="_on_body_entered"]
 [connection signal="body_exited" from="safeArea" to="safeArea" method="_on_body_exited"]

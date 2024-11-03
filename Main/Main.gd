@@ -24,6 +24,7 @@ var monsters = []
 @onready var endUI = $MenuItems/GameOver
 @onready var fadeOut = $MenuItems/ColorRect
 @onready var credits := $MenuItems/Credits
+@onready var monsterTimeAudio = $MonsterTimesUp
 
 var monsterHint = "It is pitch black. You are likely to be eaten by a grue."
 var monsterHinted = false
@@ -192,6 +193,8 @@ func _physics_process(delta: float) -> void:
 func _on_monster_timer_timeout():
 	print("Monster Timer Ran Out")
 	monsterTimer.stop()
+	if monsterTimeAudio.playing == false:
+			monsterTimeAudio.play()
 	spawnTimer.start()
 	isRunningSpawn = true 
 	player.makeOutlineRed()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1642jywcntcn"]
+[gd_scene load_steps=22 format=3 uid="uid://d1642jywcntcn"]
 
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_pa3v3"]
 [ext_resource type="Script" path="res://Terrain/Gen_Terrain.gd" id="1_rlcv6"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Main/Eyes.gd" id="7_y47h2"]
 [ext_resource type="PackedScene" uid="uid://cu33ucdc0m26b" path="res://Terrain/Grass/Grass.tscn" id="9_fchas"]
 [ext_resource type="PackedScene" uid="uid://dc87r107rudy6" path="res://Terrain/Tree/Tree.tscn" id="10_mfuor"]
+[ext_resource type="AudioStream" uid="uid://bp2us5veftt5i" path="res://Main/Monster Times Up.mp3" id="13_n7tx5"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_w78l0"]
 vertices = PackedVector3Array(-499.5, 0.480879, -499.5, -499.5, 0.480879, 499.5, 499.5, 0.480879, 499.5, 499.5, 0.480879, -499.5)
@@ -512,6 +513,10 @@ text = "Music By:"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="MonsterTimesUp" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_n7tx5")
+volume_db = 20.0
 
 [connection signal="timeout" from="Timers/MonsterTimer" to="." method="_on_monster_timer_timeout"]
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
