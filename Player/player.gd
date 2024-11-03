@@ -32,6 +32,8 @@ var chase = AudioEffectSpectrumAnalyzerInstance
 
 var stix = load("res://Collectables/Stick.tscn")
 var stickHint = "Press (E) to pick up STICK"
+var maxSticksHint = "Better take these back, you can't carry any more"
+var stickCantTake = "You can't carry any more sticks"
 
 var frames = [load("res://Player/Walk_1.png"),load("res://Player/Walk_2.png"),load("res://Player/Walk_3.png"),load("res://Player/Walk_4.png")]
 var deathFrames = [load("res://Player/death_1.png"),load("res://Player/death_2.png"),load("res://Player/death_3.png"),load("res://Player/death_4.png"),load("res://Player/death_5.png")]
@@ -168,22 +170,26 @@ func _physics_process(delta: float) -> void:
 		cameraAnchor.position = camPos
 		scoreTimer += delta
 		update_timer_display()
-		if stickInRange && Input.is_action_just_pressed("Interact"):
-				stickCounter = stickCounter + 1
-				stix.pickup()
-				pickup.play()
+		if stickInRange && Input.is_action_just_pressed("Interact") && stickCounter < 5:
+			stickCounter = stickCounter + 1
+			stix.pickup()
+			if stickCounter == 5:
+				messager.setMessage(maxSticksHint)
+			pickup.play()
+			stickLocation.append(stix.getPosition())
+			print(stickLocation.size())
+			print(stickLocation)
+			print(stix.getPosition())
+			if stickLocation.size() > 10:
+				respondLoc = stickLocation[0]
+				stickLocation = stickLocation.slice(1, 9)
 				stickLocation.append(stix.getPosition())
-				print(stickLocation.size())
-				print(stickLocation)
-				print(stix.getPosition())
-				if stickLocation.size() > 10:
-					respondLoc = stickLocation[0]
-					stickLocation = stickLocation.slice(1, 9)
-					stickLocation.append(stix.getPosition())
-					full = true
-				else:
-					full = false
-				stickInRange = false
+				full = true
+			else:
+				full = false
+			stickInRange = false
+		elif stickInRange && Input.is_action_just_pressed("Interact") && stickCounter >= 5:
+			messager.setMessage(stickCantTake)
 				
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
@@ -261,7 +267,7 @@ func makeOutlineWhite():
 
 #stick interaction
 func _on_interaction_area_entered(area: Area3D) -> void:
-	if area.get_parent() is Stick && stickCounter < 5:
+	if area.get_parent() is Stick:
 		stix = area.get_parent()
 		stickInRange = true
 		if messager:
@@ -270,7 +276,7 @@ func _on_interaction_area_entered(area: Area3D) -> void:
 func _on_interaction_area_exited(area: Area3D) -> void:
 	if area.get_parent() is Stick:
 		stickInRange = false
-		if messager:
+		if messager && messager.message == stickHint:
 			messager.delMessage()
 
 func animate_death():

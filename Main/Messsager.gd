@@ -8,6 +8,9 @@ var charCounter = 0
 
 var function = 0 # nothing, write, delete
 var message = ""
+var messageTime = 5
+var messageTimeDefault = 8
+var counter = 0
 
 func _physics_process(delta: float) -> void:
 	if function == 1:
@@ -17,6 +20,10 @@ func _physics_process(delta: float) -> void:
 			charCounter += 1
 			typeTimer = 0
 			text = message.substr(0,charCounter)
+		if counter < messageTime:
+			counter += delta
+		else:
+			delMessage()
 	if function == 2:
 		if len(text) > 0:
 			if typeTimer < disappearRate:
@@ -27,7 +34,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		pass
 		
-func setMessage(m):
+func setMessage(m,t=messageTimeDefault):
+	counter = 0
+	messageTime = t
 	charCounter = 0
 	function = 1
 	if len(text) != 0:

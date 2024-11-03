@@ -174,7 +174,8 @@ mesh = SubResource("SphereMesh_485wi")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.62929, -3.4332)
 mesh = SubResource("PlaneMesh_5kvqm")
 
-[node name="CampFire" parent="." instance=ExtResource("4_3oigl")]
+[node name="CampFire" parent="." node_paths=PackedStringArray("messager") instance=ExtResource("4_3oigl")]
+messager = NodePath("../UI/Messager")
 
 [node name="MenuItems" type="Node3D" parent="."]
 

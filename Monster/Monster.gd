@@ -9,7 +9,7 @@ extends CharacterBody3D
 const SPEED = 4.0
 
 @export var fleeDistance = 10.0
-@export var fleeTime = 5.0
+@export var fleeTime = 3.0
 @export var fleeInt = 5.0
 @export var turnSpeed = 4.0
 @export var damageInt = 1.0
@@ -70,8 +70,10 @@ func chasePlayer(delta):
 		move.play()
 
 func runAway(delta):
+	navigation.set_target_position((position-player.position)*100)
+	
 	fleeTime -= delta
-	var runDir = (global_transform.origin - player.global_transform.origin).normalized()
+	var runDir = (navigation.get_next_path_position() - transform.origin).normalized()
 	
 	var runVelocity = runDir * SPEED * delta
 	check_direction(runVelocity)
