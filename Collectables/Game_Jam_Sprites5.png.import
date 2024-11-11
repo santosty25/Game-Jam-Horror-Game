@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://l5313co6xudc"
 path.s3tc="res://.godot/imported/Game_Jam_Sprites5.png-1cd963272c1779ba0ba1e448ccbe136e.s3tc.ctex"
+path.etc2="res://.godot/imported/Game_Jam_Sprites5.png-1cd963272c1779ba0ba1e448ccbe136e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Collectables/Game_Jam_Sprites5.png"
-dest_files=["res://.godot/imported/Game_Jam_Sprites5.png-1cd963272c1779ba0ba1e448ccbe136e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Game_Jam_Sprites5.png-1cd963272c1779ba0ba1e448ccbe136e.s3tc.ctex", "res://.godot/imported/Game_Jam_Sprites5.png-1cd963272c1779ba0ba1e448ccbe136e.etc2.ctex"]
 
 [params]
 

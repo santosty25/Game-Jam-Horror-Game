@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Game-Jam-Horror-Game"
+config/name="Hylophobia"
 run/main_scene="res://Main/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
@@ -55,3 +55,4 @@ Menu={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
